@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -11,44 +12,31 @@ public class Pedone extends Pezzo{
 	public Pedone(Colore colore){
 		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/pedone_bianca.gif") : new ImageIcon("immagini/pedone_nera.gif"),colore );
 	}
-	
+	@Override
 	public Pezzi getPezzo(){
 		return Pezzi.PEDONE;
 	}
 	
 	//getX()=colonne
 	//getY()=righe
-	public Point[] getMovimento(boolean movimento_down){
-		Point[] punti;
-		punti=new Point[3];
+	public ArrayList<Point> getMovimento(boolean movimento_down){
+		ArrayList<Point> punti = new ArrayList<>();
 		if(movimento_down){
-				punti[0].setLocation(getY()+1,getX());
+			punti.add(new Point(getY()+1,getX()));
 				if(getX()+1<=7){
-					punti[1].setLocation(getY()+1,getX()+1);
-				}
-				else{
-					punti[1].setLocation(null);
+					punti.add(new Point(getY()+1,getX()+1));
 				}
 				if(getX()-1>=7){
-					punti[2].setLocation(getY()+1,getX()-1);
-				}
-				else{
-					punti[2].setLocation(null);
+					punti.add(new Point(getY()+1,getX()-1));
 				}
 		}
 		else{
-			punti[0].setLocation(getY()-1,getX());
+			punti.add(new Point(getY()-1,getX()));
 			if(getX()+1<=7){
-				punti[1].setLocation(getY()-1,getX()+1);
-			}
-			else{
-				punti[1].setLocation(null);
+				punti.add(new Point(getY()-1,getX()+1));
 			}
 			if(getX()-1>=7){
-				punti[2].setLocation(getY()-1,getX()-1);
-			}
-			else{
-				punti[2].setLocation(null);
+				punti.add(new Point(getY()-1,getX()-1));
 			}
 		}
 		return punti;
