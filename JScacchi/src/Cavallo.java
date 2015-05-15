@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -10,44 +11,25 @@ public class Cavallo extends Pezzo{
 	public Cavallo(Colore colore){
 		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/cavallo_bianca.gif") : new ImageIcon("immagini/cavallo_nera.gif"),colore );
 	}
-	
+	@Override
 	public Pezzi getPezzo(){
 		return Pezzi.CAVALLO;
 	}
 	
 	//getX()=colonne
 	//getY()=righe
-	public Point[] getMovimento(){
-		int cont=0;
+	public ArrayList<Point> getMovimento(){
+		
 		final int[] posix_riga={2,-2,1,-1};
 		final int[] posix_colonna={1,-1,2,-2};
-		Point punti[];
-		punti=new Point[8];
+		ArrayList<Point> punti = new ArrayList<>();
 			for(int i=0;i<4;i++){
 				for(int j=0;j<2;j++){
-						if(getY()+posix_riga[i]>=8 || getY()+posix_riga[i]<=-1 || getX()+posix_colonna[j]>=8 || getX()+posix_colonna[j]<=-1){
-							punti[cont].setLocation(null);
-							cont++;
+						if(getY()+posix_riga[i]<8 && getY()+posix_riga[i]>-1 && getX()+posix_colonna[j]<8 && getX()+posix_colonna[j]>-1){
+							punti.add(new Point(getY()+posix_riga[i],getX()+posix_colonna[j]));
 						}
-						else{
-							punti[cont].setLocation(getY()+posix_riga[i],getX()+posix_colonna[j]);
-							cont++;
-						}
-					}
 				}
+			}
 		return punti;
 	}
 }
-
-/*
-int colonna=getX();
-int riga=getY();
-colonna=colonna+1;
-riga=riga-2;
-if(colonna>=8 || colonna<=-1 || riga>=8 || riga <=-1){
-	punti[0]=null;
-}
-else{
-	punti[0].setLocation(riga,colonna);
-}
-*/
