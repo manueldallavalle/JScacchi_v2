@@ -25,8 +25,8 @@ public abstract class Pezzo extends JButton {
 		return this.colore;
 	}
 	
-	public final void setLocation(Point loc){
-		this.location = loc;
+	public final void setLocation(int x, int y){
+		this.location = new Point(x,y);
 	}
 	
 	public final Point getLocation(){
@@ -36,5 +36,9 @@ public abstract class Pezzo extends JButton {
 	public Pezzi getPezzo(){
 		return Pezzi.VUOTO;
 	}
+	
+	public ArrayList<Point> getMovimento(){
+		return new ArrayList<Point>();
+	}	
 	
 }
