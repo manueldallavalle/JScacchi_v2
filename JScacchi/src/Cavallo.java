@@ -6,30 +6,38 @@ import javax.swing.ImageIcon;
 import struttura.Colore;
 import struttura.Pezzi;
 
-public class Cavallo extends Pezzo{
+public class Pedone extends Pezzo{
 	private static final long serialVersionUID = 1L;
-	public Cavallo(Colore colore){
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/cavallo_bianca.gif") : new ImageIcon("immagini/cavallo_nera.gif"),colore );
+
+	public Pedone(Colore colore){
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/pedone_bianca.gif") : new ImageIcon("immagini/pedone_nera.gif"),colore );
 	}
 	@Override
 	public Pezzi getPezzo(){
-		return Pezzi.CAVALLO;
+		return Pezzi.PEDONE;
 	}
 	
-	//getX()=colonne
-	//getY()=righe
+	@Override
 	public ArrayList<Point> getMovimento(){
-		
-		final int[] posix_riga={2,-2,1,-1};
-		final int[] posix_colonna={1,-1,2,-2};
 		ArrayList<Point> punti = new ArrayList<>();
-			for(int i=0;i<4;i++){
-				for(int j=0;j<2;j++){
-						if(getY()+posix_riga[i]<8 && getY()+posix_riga[i]>-1 && getX()+posix_colonna[j]<8 && getX()+posix_colonna[j]>-1){
-							punti.add(new Point(getY()+posix_riga[i],getX()+posix_colonna[j]));
-						}
+		if(getColore().equals(Colore.NERO)){
+			punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX())));
+				if(getX()+1<=7){
+					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()+1)));
 				}
+				if(getX()-1>=7){
+					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()-1)));
+				}
+		}
+		else{
+			punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX())));
+			if(getX()+1<=7){
+				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()+1)));
 			}
+			if(getX()-1>=7){
+				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()-1)));
+			}
+		}
 		return punti;
 	}
 }
