@@ -17,26 +17,25 @@ public class Pedone extends Pezzo{
 		return Pezzi.PEDONE;
 	}
 	
-	//getX()=colonne
-	//getY()=righe
-	public ArrayList<Point> getMovimento(boolean movimento_down){
+	@Override
+	public ArrayList<Point> getMovimento(){
 		ArrayList<Point> punti = new ArrayList<>();
-		if(movimento_down){
-			punti.add(new Point(getY()+1,getX()));
+		if(getColore().equals(Colore.NERO)){
+			punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX())));
 				if(getX()+1<=7){
-					punti.add(new Point(getY()+1,getX()+1));
+					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()+1)));
 				}
 				if(getX()-1>=7){
-					punti.add(new Point(getY()+1,getX()-1));
+					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()-1)));
 				}
 		}
 		else{
-			punti.add(new Point(getY()-1,getX()));
+			punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX())));
 			if(getX()+1<=7){
-				punti.add(new Point(getY()-1,getX()+1));
+				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()+1)));
 			}
 			if(getX()-1>=7){
-				punti.add(new Point(getY()-1,getX()-1));
+				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()-1)));
 			}
 		}
 		return punti;
