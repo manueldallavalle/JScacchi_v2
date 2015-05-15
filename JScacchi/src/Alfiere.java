@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import javax.swing.ImageIcon;
 
 import struttura.Colore;
@@ -12,5 +14,33 @@ public class Alfiere extends Pezzo{
 	
 	public Pezzi getPezzo(){
 		return Pezzi.ALFIERE;
+	}
+	
+	//getX()=colonne
+	//getY()=righe
+	public Point[] getMovimento(){
+		Point[] punti;
+		punti=new Point[13];
+		int index=0;
+		for(int i=getY(),j=getX();(i<=7 && j<=7);i++,j++){
+			punti[index].setLocation(i+1,j+1);
+			index++;
+		}
+		for(int i=getY(),j=getX();(i>=0 && j<=7);i--,j++){
+			punti[index].setLocation(i-1,j+1);
+			index++;
+		}
+		for(int i=getY(),j=getX();(i>=0 && j>=0);i--,j--){
+			punti[index].setLocation(i-1,j-1);
+			index++;
+		}
+		for(int i=getY(),j=getX();(i<=7 && j>=0);i++,j--){
+			punti[index].setLocation(i+1,j-1);
+			index++;
+		}
+		for(;index<12;index++){
+			punti[index].setLocation(null);
+		}
+		return punti;
 	}
 }

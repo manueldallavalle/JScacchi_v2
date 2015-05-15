@@ -15,6 +15,8 @@ public class Cavallo extends Pezzo{
 		return Pezzi.CAVALLO;
 	}
 	
+	//getX()=colonne
+	//getY()=righe
 	public Point[] getMovimento(){
 		int cont=0;
 		final int[] posix_riga={2,-2,1,-1};
