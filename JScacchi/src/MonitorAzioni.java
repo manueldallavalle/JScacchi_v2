@@ -57,6 +57,11 @@ public class MonitorAzioni implements ActionListener {
     }
 	
 	public void evidenziaCaselle(Pezzo p_click){
-		Pezzo[][] t = scacchiera.getTavolo();
+		Pezzo[][] tavolo = scacchiera.getTavolo();
+		
+		for(Point punto: p_click.getMovimento()){
+			tavolo[(int)(punto.getX())][(int)(punto.getY())].setBorder(BorderFactory.createLineBorder(Color.green, 2));
+			JOptionPane.showMessageDialog(null, punto.getX()+" - "+punto.getY());
+		}
 	}
 }
