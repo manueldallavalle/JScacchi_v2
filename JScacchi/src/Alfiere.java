@@ -19,6 +19,7 @@ public class Alfiere extends Pezzo{
 	
 	//getX()=colonne
 	//getY()=righe
+	@Override
 	public ArrayList<Point> getMovimento(){
 		ArrayList<Point> punti = new ArrayList<>();
 		for(int i=getY(),j=getX();(i<=7 && j<=7);i++,j++){
