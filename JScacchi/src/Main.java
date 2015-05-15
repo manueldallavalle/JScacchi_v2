@@ -10,7 +10,7 @@ public class Main {
 				frame.setTitle("Scacchi");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
-                //frame.setResizable(false);
+		                frame.setResizable(false);
 			}
 		});
 	}
