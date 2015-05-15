@@ -22,10 +22,10 @@ public class StrutturaScacchiera extends JPanel{
 	private JLabel coordinate_rig[]=new JLabel[9];
 	private JPanel coordinateRiga=new JPanel();
 	private JLabel ped_mangiate_bianche[]=new JLabel[16];
-    private JLabel ped_mangiate_nere[]=new JLabel[16];
-    private JPanel pedineMangiate=new JPanel();
-    private JLabel mossa = new JLabel();
-    private JPanel contatoreMosse = new JPanel();
+	private JLabel ped_mangiate_nere[]=new JLabel[16];
+	private JPanel pedineMangiate=new JPanel();
+	private JLabel mossa = new JLabel();
+	private JPanel contatoreMosse = new JPanel();
 	
 	public StrutturaScacchiera(){
 		this.setLayout(new BorderLayout());
@@ -127,6 +127,10 @@ public class StrutturaScacchiera extends JPanel{
 	            	scacchiera[riga][colonna]=new Vuoto(tmp_colore);
 	            }
 				scacchiera[riga][colonna].setLocation(riga,colonna);
+				// MOVIMENTI
+				final StrutturaScacchiera obj = this;
+				scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
+				
 				tavolo.add(scacchiera[riga][colonna]);
 				if(riga%2==0){
 	                if(colonna%2==0){
