@@ -17,15 +17,14 @@ public class Re extends Pezzo{
 		return Pezzi.RE;
 	}
 	
-	//getX()=colonne
-	//getY()=righe
+	@Override
 	public ArrayList<Point> getMovimento(){
 		ArrayList<Point> punti = new ArrayList<>();
 		final int[] posix_riga={1,1,0,-1,-1,-1,0,1};
 		final int[] posix_colonna={0,1,1,1,0,-1,-1,-1};
 		for(int i=0;i<8;i++){
 			if((getY()+posix_riga[i]<=7 && getY()+posix_riga[i]>=0) && getX()+posix_colonna[i]<=7 && getX()+posix_colonna[i]>=0){
-				punti.add(new Point(getY()+posix_riga[i],getX()+posix_colonna[i]));
+				punti.add(new Point((int)(getLocation().getY()+posix_riga[i]),(int)(getLocation().getX()+posix_colonna[i])));
 			}
 		}
 		return punti;
