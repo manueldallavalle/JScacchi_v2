@@ -33,4 +33,8 @@ public abstract class Pezzo extends JButton {
 		return this.location;
 	}
 	
+	public Pezzi getPezzo(){
+		return Pezzi.VUOTO;
+	}
+	
 }
