@@ -22,17 +22,25 @@ public class Alfiere extends Pezzo{
 	@Override
 	public ArrayList<Point> getMovimento(){
 		ArrayList<Point> punti = new ArrayList<>();
-		for(int i=getY(),j=getX();(i<=7 && j<=7);i++,j++){
-			punti.add(new Point(i+1,j+1));
+		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i<=7 && j<=7);i++,j++){
+			if(j-i==((int)getLocation().getY())-((int)getLocation().getX())){
+				punti.add(new Point(i+1,j+1));
+			}			
 		}
-		for(int i=getY(),j=getX();(i>=0 && j<=7);i--,j++){
-			punti.add(new Point(i-1,j+1));
+		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i>=0 && j<=7);i--,j++){
+			if(j+i==((int)getLocation().getY())+((int)getLocation().getX())){
+				punti.add(new Point(i-1,j+1));
+			}			
 		}
-		for(int i=getY(),j=getX();(i>=0 && j>=0);i--,j--){
-			punti.add(new Point(i-1,j-1));
+		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i>=0 && j>=0);i--,j--){
+			if(j-i==((int)getLocation().getY())-((int)getLocation().getX())){
+				punti.add(new Point(i-1,j-1));
+			}			
 		}
-		for(int i=getY(),j=getX();(i<=7 && j>=0);i++,j--){
-			punti.add(new Point(i+1,j-1));
+		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i<=7 && j>=0);i++,j--){
+			if(j+i==((int)getLocation().getY())+((int)getLocation().getX())){
+				punti.add(new Point(i+1,j-1));
+			}
 		}
 		return punti;
 	}

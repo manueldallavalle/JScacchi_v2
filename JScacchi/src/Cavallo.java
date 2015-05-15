@@ -19,15 +19,14 @@ public class Cavallo extends Pezzo{
 	@Override
 	public ArrayList<Point> getMovimento(){
 		
-		final int[] posix_riga={2,-2,1,-1};
-		final int[] posix_colonna={1,-1,2,-2};
+		final int[] posix_riga={-1,-1,-2,-2,1,1,2,2};
+		final int[] posix_colonna={2,-2,1,-1,2,-2,1,-1};
 		ArrayList<Point> punti = new ArrayList<>();
-			for(int i=0;i<4;i++){
-				for(int j=0;j<2;j++){
-						if(getY()+posix_riga[i]<8 && getY()+posix_riga[i]>-1 && getX()+posix_colonna[j]<8 && getX()+posix_colonna[j]>-1){
-							punti.add(new Point((int)(getLocation().getY()+posix_riga[i]),(int)(getLocation().getX()+posix_colonna[j])));
-						}
+			for(int i=0;i<8;i++){
+				if((int)(getLocation().getY())+posix_riga[i]<8 && (int)(getLocation().getY())+posix_riga[i]>-1 && (int)(getLocation().getX())+posix_colonna[i]<8 && (int)(getLocation().getX())+posix_colonna[i]>-1){
+						punti.add(new Point((int)(getLocation().getY()+posix_riga[i]),(int)(getLocation().getX()+posix_colonna[i])));
 				}
+			    
 			}
 		return punti;
 	}

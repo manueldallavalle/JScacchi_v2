@@ -22,19 +22,19 @@ public class Pedone extends Pezzo{
 		ArrayList<Point> punti = new ArrayList<>();
 		if(getColore().equals(Colore.NERO)){
 			punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX())));
-				if(getX()+1<=7){
+				if((int)getLocation().getX()+1<=7){
 					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()+1)));
 				}
-				if(getX()-1>=7){
+				if((int)getLocation().getX()-1>=7){
 					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()-1)));
 				}
 		}
 		else{
 			punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX())));
-			if(getX()+1<=7){
+			if((int)getLocation().getX()+1<=7){
 				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()+1)));
 			}
-			if(getX()-1>=7){
+			if((int)getLocation().getX()-1>=7){
 				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()-1)));
 			}
 		}

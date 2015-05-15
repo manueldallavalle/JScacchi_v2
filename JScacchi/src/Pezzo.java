@@ -1,6 +1,8 @@
 import struttura.*;
+
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.JButton;

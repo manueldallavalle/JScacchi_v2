@@ -1,7 +1,11 @@
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+
 import struttura.*;
 
 public class MonitorAzioni implements ActionListener {
@@ -23,7 +27,6 @@ public class MonitorAzioni implements ActionListener {
 				String turno_avversari = ((stato.equals(Info.TURNO_BIANCHI)) ? Messaggi.MSG_TRBIANCHI.getMsg() : Messaggi.MSG_TRNERI.getMsg());
 				JOptionPane.showMessageDialog(null, turno_avversari, "Info", JOptionPane.WARNING_MESSAGE);
 			}else{
-				JOptionPane.showMessageDialog(null, p_click.getLocation().getX() + " - " + p_click.getLocation().getY());
 				evidenziaCaselle(p_click);
 				// AGGIORNAMENTO STATO
 				scacchiera.setPzAttesa(p_click);
@@ -57,11 +60,9 @@ public class MonitorAzioni implements ActionListener {
     }
 	
 	public void evidenziaCaselle(Pezzo p_click){
-		Pezzo[][] tavolo = scacchiera.getTavolo();
-		
+		Pezzo[][] tavolo = scacchiera.getTavolo();		
 		for(Point punto: p_click.getMovimento()){
-			tavolo[(int)(punto.getX())][(int)(punto.getY())].setBorder(BorderFactory.createLineBorder(Color.green, 2));
-			JOptionPane.showMessageDialog(null, punto.getX()+" - "+punto.getY());
+			tavolo[(int)(punto.getLocation().getX())][(int)(punto.getLocation().getY())].setBorder(BorderFactory.createLineBorder(Color.green, 2));
 		}
 	}
 }

@@ -23,7 +23,7 @@ public class Regina extends Pezzo{
 	public ArrayList<Point> getMovimento(){
 		ArrayList<Point> punti = new ArrayList<>();		
 		punti.addAll(torre.getMovimento());
-		punti.addAll(alfiere.getMovimento());
+		//punti.addAll(alfiere.getMovimento());
 		return punti;
 	}
 	
