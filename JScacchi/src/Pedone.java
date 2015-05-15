@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import javax.swing.ImageIcon;
 
 import struttura.Colore;
@@ -12,5 +14,43 @@ public class Pedone extends Pezzo{
 	
 	public Pezzi getPezzo(){
 		return Pezzi.PEDONE;
+	}
+	
+	//getX()=colonne
+	//getY()=righe
+	public Point[] getMovimento(boolean movimento_down){
+		Point[] punti;
+		punti=new Point[3];
+		if(movimento_down){
+				punti[0].setLocation(getY()+1,getX());
+				if(getX()+1<=7){
+					punti[1].setLocation(getY()+1,getX()+1);
+				}
+				else{
+					punti[1].setLocation(null);
+				}
+				if(getX()-1>=7){
+					punti[2].setLocation(getY()+1,getX()-1);
+				}
+				else{
+					punti[2].setLocation(null);
+				}
+		}
+		else{
+			punti[0].setLocation(getY()-1,getX());
+			if(getX()+1<=7){
+				punti[1].setLocation(getY()-1,getX()+1);
+			}
+			else{
+				punti[1].setLocation(null);
+			}
+			if(getX()-1>=7){
+				punti[2].setLocation(getY()-1,getX()-1);
+			}
+			else{
+				punti[2].setLocation(null);
+			}
+		}
+		return punti;
 	}
 }
