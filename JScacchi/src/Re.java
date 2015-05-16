@@ -7,7 +7,7 @@ import struttura.Colore;
 import struttura.Pezzi;
 
 public class Re extends Pezzo{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID=1L;
 
 	public Re(Colore colore){
 		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/re_bianca.gif") : new ImageIcon("immagini/re_nera.gif"),colore );
@@ -19,7 +19,7 @@ public class Re extends Pezzo{
 	
 	@Override
 	public ArrayList<Point> getMovimento(){
-		ArrayList<Point> punti = new ArrayList<>();
+		ArrayList<Point> punti=new ArrayList<>();
 		final int[] posix_riga={1,1,0,-1,-1,-1,0,1};
 		final int[] posix_colonna={0,1,1,1,0,-1,-1,-1};
 		for(int i=0;i<8;i++){

@@ -20,7 +20,7 @@ public abstract class Pezzo extends JButton {
 	protected Pezzo(Icon img, Colore col){
 		super(img);
 		setPreferredSize(new Dimension(70,70));
-		this.colore = col;
+		this.colore=col;
 	}
 	
 	public final Colore getColore(){
@@ -28,7 +28,11 @@ public abstract class Pezzo extends JButton {
 	}
 	
 	public final void setLocation(int x, int y){
-		this.location = new Point(x,y);
+		this.location=new Point(x,y);
+	}
+	
+	public final void setLocation(Point p){
+		this.location=p;
 	}
 	
 	public final Point getLocation(){

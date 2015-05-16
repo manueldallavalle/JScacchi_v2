@@ -14,7 +14,7 @@ public class StrutturaScacchiera extends JPanel{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID=1L;
 	private Pezzo[][] scacchiera=new Pezzo[8][8];
 	private JPanel tavolo=new JPanel();
 	private JLabel coordinate_col[]=new JLabel[8];
@@ -26,16 +26,16 @@ public class StrutturaScacchiera extends JPanel{
     private JPanel pedineMangiate=new JPanel();
     private JLabel mossa = new JLabel();
     private JPanel contatoreMosse = new JPanel();
-    
-    private int cont_mosse = 0;
-    private Info stato;
+    final StrutturaScacchiera obj = this;
+    private int cont_mosse=0;
+   // private Info stato;
     private Pezzo pezzo_attesa;
 	
 	public StrutturaScacchiera(){
 		this.setLayout(new BorderLayout());
 		setScacchiera();
 		struttura();
-		stato = Info.TURNO_BIANCHI; // 1° TURNO DEI BIANCHI
+		//stato = Info.TURNO_BIANCHI; // 1° TURNO DEI BIANCHI
 	}
 	
 	private void struttura(){
@@ -134,8 +134,7 @@ public class StrutturaScacchiera extends JPanel{
 				// INVERTITO COLONNA - RIGA
 				scacchiera[riga][colonna].setLocation(colonna,riga);
 				// MOVIMENTI
-				final StrutturaScacchiera obj = this;
-				scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
+				//scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
 				
 				tavolo.add(scacchiera[riga][colonna]);
 				if(riga%2==0){
@@ -165,19 +164,19 @@ public class StrutturaScacchiera extends JPanel{
 		return scacchiera;
 	}
 	
-	protected Info getStato(){
-		return stato;
-	}
+	//protected Info getStato(){
+		//return stato;
+	//}
 	
-	protected void setStato(Info stato){
-		this.stato = stato;
-	}
+	//protected void setStato(Info stato){
+		//this.stato = stato;
+	//}
 	
 	protected Pezzo getPzAttesa(){
 		return pezzo_attesa;
 	}
 	
 	protected void setPzAttesa(Pezzo pezzo_attesa){
-		this.pezzo_attesa = pezzo_attesa;
+		this.pezzo_attesa=pezzo_attesa;
 	}
 }

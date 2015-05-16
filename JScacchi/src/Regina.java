@@ -7,12 +7,15 @@ import struttura.Colore;
 import struttura.Pezzi;
 
 public class Regina extends Pezzo{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID=1L;
 	private Torre torre=new Torre(Colore.VUOTO);
 	private Alfiere alfiere=new Alfiere(Colore.VUOTO);
+	
 
 	public Regina(Colore colore){
 		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/regina_bianca.gif") : new ImageIcon("immagini/regina_nera.gif"),colore );
+		alfiere.setLocation(getLocation());
+		torre.setLocation(getLocation());
 	}
 	@Override
 	public Pezzi getPezzo(){
@@ -21,7 +24,7 @@ public class Regina extends Pezzo{
 	
 	@Override
 	public ArrayList<Point> getMovimento(){
-		ArrayList<Point> punti = new ArrayList<>();		
+		ArrayList<Point> punti=new ArrayList<>();		
 		punti.addAll(torre.getMovimento());
 		//punti.addAll(alfiere.getMovimento());
 		return punti;

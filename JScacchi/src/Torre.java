@@ -6,11 +6,12 @@ import javax.swing.ImageIcon;
 import struttura.*;
 
 public class Torre extends Pezzo{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID=1L;
 
 	public Torre(Colore colore){
 		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/torre_bianca.gif") : new ImageIcon("immagini/torre_nera.gif"),colore );
 	}
+	
 	@Override
 	public Pezzi getPezzo(){
 		return Pezzi.TORRE;
@@ -19,7 +20,7 @@ public class Torre extends Pezzo{
 	@Override
 	public ArrayList<Point> getMovimento(){
 		int i=0,check_bordo_dx=1,check_bordo_sx=0,check_bordo_down=1,check_bordo_up=0;
-		ArrayList<Point> punti = new ArrayList<>();
+		ArrayList<Point> punti=new ArrayList<>();
 		check_bordo_sx=(int)getLocation().getX();
 		while(i<7){    //getX()+check_bordo_dx)<=7 && check_bordo_sx>=0
 			if((int)getLocation().getX()+check_bordo_dx<=7){
