@@ -11,9 +11,7 @@ import struttura.*;
 
 
 public class StrutturaScacchiera extends JPanel{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID=1L;
 	private Pezzo[][] scacchiera=new Pezzo[8][8];
 	private JPanel tavolo=new JPanel();
@@ -28,14 +26,14 @@ public class StrutturaScacchiera extends JPanel{
     private JPanel contatoreMosse = new JPanel();
     final StrutturaScacchiera obj = this;
     private int cont_mosse=0;
-   // private Info stato;
+    private Info stato;
     private Pezzo pezzo_attesa;
 	
 	public StrutturaScacchiera(){
 		this.setLayout(new BorderLayout());
 		setScacchiera();
 		struttura();
-		//stato = Info.TURNO_BIANCHI; // 1° TURNO DEI BIANCHI
+		stato = Info.TURNO_BIANCHI; // 1° TURNO DEI BIANCHI
 	}
 	
 	private void struttura(){
@@ -134,7 +132,7 @@ public class StrutturaScacchiera extends JPanel{
 				// INVERTITO COLONNA - RIGA
 				scacchiera[riga][colonna].setLocation(colonna,riga);
 				// MOVIMENTI
-				//scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
+				scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
 				
 				tavolo.add(scacchiera[riga][colonna]);
 				if(riga%2==0){
@@ -155,6 +153,17 @@ public class StrutturaScacchiera extends JPanel{
 		add(tavolo);
 	}
 	
+	protected void resetScacchiera(){
+		remove(tavolo);
+		tavolo.removeAll();
+		tavolo.updateUI();
+		setScacchiera();
+		revalidate();
+		repaint();
+		cont_mosse = 0;
+		mossa.setText("MOSSE PARTITA: " + cont_mosse);
+	}
+	
 	protected void incrementaMosse(){
 		cont_mosse++;
 		mossa.setText("MOSSE PARTITA: " + cont_mosse);
@@ -164,13 +173,13 @@ public class StrutturaScacchiera extends JPanel{
 		return scacchiera;
 	}
 	
-	//protected Info getStato(){
-		//return stato;
-	//}
+	protected Info getStato(){
+		return stato;
+	}
 	
-	//protected void setStato(Info stato){
-		//this.stato = stato;
-	//}
+	protected void setStato(Info stato){
+		this.stato = stato;
+	}
 	
 	protected Pezzo getPzAttesa(){
 		return pezzo_attesa;
