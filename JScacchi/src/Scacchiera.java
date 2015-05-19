@@ -14,6 +14,8 @@ public class Scacchiera extends JFrame{
     private JMenuItem esciPartita;
 	
 	public Scacchiera(){
+		scacchiera=new StrutturaScacchiera();
+		
 		menuBar=new JMenuBar();
         menu=new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_M); // HOTKEY M
@@ -22,13 +24,15 @@ public class Scacchiera extends JFrame{
         esciPartita=new JMenuItem("Esci", KeyEvent.VK_E);  // HOTKEY E
         menu.add(nuovaPartita);
         menu.add(esciPartita);
+        
+        MonitorAzioni monitor_menu = new MonitorAzioni(scacchiera);
+        nuovaPartita.addActionListener(monitor_menu);
+        nuovaPartita.setActionCommand("nuovaPartita");
+        esciPartita.addActionListener(monitor_menu);
+        esciPartita.setActionCommand("esciPartita");
+        
         this.setJMenuBar(menuBar);
-		scacchiera=new StrutturaScacchiera();
 		add(scacchiera);
 		pack();
-	}
-	
-	protected void resetScacchiera(){
-		scacchiera.removeAll();
 	}
 }
