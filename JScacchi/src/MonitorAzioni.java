@@ -10,12 +10,23 @@ import struttura.*;
 
 public class MonitorAzioni implements ActionListener {
 	private StrutturaScacchiera scacchiera;
-
+	
 	public MonitorAzioni(StrutturaScacchiera scacchiera){
 		this.scacchiera = scacchiera;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		if ((e.getActionCommand()).equals("esciPartita")) {
+            System.exit(0);
+		}else if ((e.getActionCommand()).equals("nuovaPartita")) {
+			scacchiera.resetScacchiera(); // RESET SCACCHIERA
+        } else {
+        	gestisciSpostamento(e); // GESTIONE SPOSTAMENTO
+        }
+	}
+	
+	private void gestisciSpostamento(ActionEvent e){
 		Pezzo p_click = (Pezzo) e.getSource();
 		Info stato = scacchiera.getStato();
 
@@ -33,7 +44,6 @@ public class MonitorAzioni implements ActionListener {
 				scacchiera.setStato((stato.equals(Info.TURNO_BIANCHI)) ? Info.ATTESA_BIANCHI : Info.ATTESA_NERI);
 			}
 		}else if(stato.equals(Info.ATTESA_BIANCHI) || stato.equals(Info.ATTESA_NERI)){
-			
 			scacchiera.incrementaMosse(); // Incrementa contatore
 		}
 	}
