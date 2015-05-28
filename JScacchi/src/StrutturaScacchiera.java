@@ -188,4 +188,11 @@ public class StrutturaScacchiera extends JPanel{
 	protected void setPzAttesa(Pezzo pezzo_attesa){
 		this.pezzo_attesa=pezzo_attesa;
 	}
+	
+	protected void aggiornaScacchiera(){
+		tavolo.updateUI();
+		tavolo.revalidate();
+		revalidate();
+		repaint();
+	}
 }

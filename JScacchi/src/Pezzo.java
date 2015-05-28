@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public abstract class Pezzo extends JButton {
@@ -45,6 +46,10 @@ public abstract class Pezzo extends JButton {
 	
 	public ArrayList<Point> getMovimento(){
 		return new ArrayList<Point>();
-	}	
+	}
+	
+	public void aggiornaIcona(Icon img){
+		this.setIcon(img);
+	}
 	
 }
