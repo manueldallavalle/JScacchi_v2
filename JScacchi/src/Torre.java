@@ -23,7 +23,7 @@ public class Torre extends Pezzo {
     public ArrayList < Point > getMovimento() {
         int i = 0, check_bordo_dx = 1, check_bordo_sx = 0, check_bordo_down = 1, check_bordo_up = 0;
         int X = (int) this.getLocation().getX(),
-            Y = (int) this.getLocation().getX();
+            Y = (int) this.getLocation().getY();
         ArrayList < Point > punti = new ArrayList < > ();
         check_bordo_sx = X;
         while (i < 7) { //getX()+check_bordo_dx)<=7 && check_bordo_sx>=0
