@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -161,6 +162,8 @@ public class StrutturaScacchiera extends JPanel{
 		revalidate();
 		repaint();
 		cont_mosse = 0;
+		pezzo_attesa = null;
+		stato = Info.TURNO_BIANCHI;
 		mossa.setText("MOSSE PARTITA: " + cont_mosse);
 	}
 	
@@ -190,6 +193,31 @@ public class StrutturaScacchiera extends JPanel{
 	}
 	
 	protected void aggiornaScacchiera(){
+		tavolo.removeAll();
+		tavolo.updateUI();
+		int riga,colonna;
+		for(riga=0;riga<8;riga++){
+			for(colonna=0;colonna<8;colonna++){
+				// MOVIMENTI
+				if(scacchiera[riga][colonna].getActionListeners().length == 0) scacchiera[riga][colonna].addActionListener(new MonitorAzioni(obj));
+				tavolo.add(scacchiera[riga][colonna]);
+				if(riga%2==0){
+	                if(colonna%2==0){
+	                    scacchiera[riga][colonna].setBackground(Color.decode("#f6d5a5"));
+	                }else{
+	                    scacchiera[riga][colonna].setBackground(Color.decode("#c46f38"));
+	                }
+	            }else{
+	                if(colonna%2!=0){
+	                    scacchiera[riga][colonna].setBackground(Color.decode("#f6d5a5"));
+	                }else{
+	                    scacchiera[riga][colonna].setBackground(Color.decode("#c46f38"));
+	                }
+	            }
+				//RESET BORDO
+				scacchiera[riga][colonna].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			}
+		}
 		tavolo.updateUI();
 		tavolo.revalidate();
 		revalidate();
