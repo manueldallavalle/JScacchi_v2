@@ -2,12 +2,16 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import struttura.*;
+import javax.swing.border.LineBorder;
 
 public class MonitorAzioni implements ActionListener {
 	private StrutturaScacchiera scacchiera;
@@ -30,10 +34,7 @@ public class MonitorAzioni implements ActionListener {
 	private void gestisciSpostamento(ActionEvent e){
 		Pezzo p_click = (Pezzo) e.getSource();
 		Info stato = scacchiera.getStato();
-		Pezzo p_click_update = scacchiera.getTavolo()[(int) p_click.getLocation().getY()][(int) p_click.getLocation().getX()];
-		p_click = p_click_update;
-	
-		JOptionPane.showMessageDialog(null, "ICONA CLICK = " + p_click.getIcon());
+
 		if(stato.equals(Info.TURNO_BIANCHI) || stato.equals(Info.TURNO_NERI)){
 			if(p_click.getPezzo().equals(Pezzi.VUOTO)){
 				JOptionPane.showMessageDialog(null, Messaggi.ERR_PEZZONULL.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -42,22 +43,40 @@ public class MonitorAzioni implements ActionListener {
 				String turno_avversari = ((stato.equals(Info.TURNO_BIANCHI)) ? Messaggi.MSG_TRBIANCHI.getMsg() : Messaggi.MSG_TRNERI.getMsg());
 				JOptionPane.showMessageDialog(null, turno_avversari, "Info", JOptionPane.WARNING_MESSAGE);
 			}else{
-				JOptionPane.showMessageDialog(null,"1° CLICK");			
-				JOptionPane.showMessageDialog(null,"PEZZO = " + p_click.getPezzo() + "\nLOC = " + p_click.getLocation().toString());
-				//evidenziaCaselle(p_click);
-				// AGGIORNAMENTO STATO
 				scacchiera.setPzAttesa(p_click);
-				scacchiera.setStato((stato.equals(Info.TURNO_BIANCHI)) ? Info.ATTESA_BIANCHI : Info.ATTESA_NERI);
+				evidenziaCaselle(p_click);
+				// AGGIORNAMENTO STATO
+				if(mosseDisponibili()){
+					scacchiera.setStato((stato.equals(Info.TURNO_BIANCHI)) ? Info.ATTESA_BIANCHI : Info.ATTESA_NERI);
+				}else{
+					JOptionPane.showMessageDialog(null, Messaggi.ERR_NOMOSSE.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}else if(stato.equals(Info.ATTESA_BIANCHI) || stato.equals(Info.ATTESA_NERI)){
-			JOptionPane.showMessageDialog(null,"2° CLICK");
-			JOptionPane.showMessageDialog(null,"PEZZO = " + p_click.getPezzo() + "\nLOC = " + p_click.getLocation().toString());
-			spostaPedina(p_click.getLocation());
-			scacchiera.incrementaMosse(); // Incrementa contatore
+			if(spostaPedina(p_click.getLocation())){
+				scacchiera.incrementaMosse(); // Incrementa contatore
+				scacchiera.setStato((stato.equals(Info.ATTESA_BIANCHI)) ? Info.TURNO_NERI : Info.TURNO_BIANCHI); // AGGIORNAMENTO STATO
+			}else{
+				JOptionPane.showMessageDialog(null, Messaggi.ERR_MOSSAVALIDA.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	
-    protected int checkSpostamento(Pezzo newPezzo) {
+	private boolean mosseDisponibili(){
+		Pezzo[][] tavolo = scacchiera.getTavolo();
+		boolean flag = false;
+		for(int riga=0;riga<8 && !flag;riga++){
+			for(int colonna=0;colonna<8 && !flag;colonna++){
+				if(tavolo[riga][colonna].getBorder() instanceof LineBorder){
+					Color tmp = ((LineBorder) tavolo[riga][colonna].getBorder()).getLineColor();
+					if ((tmp.equals(Color.decode("#00cc00"))) || (tmp.equals(Color.red))) flag = true;
+				}
+			}
+		}
+		return flag;
+	}
+	
+    protected int checkColore(Pezzo newPezzo) {
         /**
          * STESSO COLORE -- MOSSA NON VALIDA
          * COLORE DIVERSO -- MOSSA VALIDA
@@ -78,14 +97,45 @@ public class MonitorAzioni implements ActionListener {
         return -1;
     }
 	
-	public void evidenziaCaselle(Pezzo p_click){
-		Pezzo[][] tavolo = scacchiera.getTavolo();		
-		for(Point punto: p_click.getMovimento()){
-			tavolo[(int)(punto.getLocation().getX())][(int)(punto.getLocation().getY())].setBorder(BorderFactory.createLineBorder(Color.green, 2));
-		}
-	}
-	
-	private void spostaPedina(Point newLoc){
+    private void evidenziaCaselle(Pezzo p_click){
+    	Pezzo[][] tavolo = scacchiera.getTavolo();
+    	Colore colore_pezzo = p_click.getColore();
+    	ArrayList<Point> pipi=p_click.getMovimento();
+    	
+    	if(colore_pezzo.equals(Colore.BIANCO)) {
+    		Collections.sort(pipi, new Comparator<Point>() {
+    			public int compare(Point p1, Point p2) {
+    				int sum1 = Math.abs(p1.x) + Math.abs(p1.y);
+    				int sum2 = Math.abs(p2.x) + Math.abs(p2.y);
+    				return (sum2 - sum1);
+    			}
+    		});
+    	}else {
+    		Collections.sort(pipi, new Comparator<Point>() {
+    			public int compare(Point p1, Point p2) {
+    				int sum1 = Math.abs(p1.x) + Math.abs(p1.y);
+    				int sum2 = Math.abs(p2.x) + Math.abs(p2.y);
+    				return (sum1 - sum2);
+    			}
+    		});
+    	}
+    	for(Point punto: pipi){
+    		if(checkColore(tavolo[(int)punto.getX()][(int)punto.getY()])==1){
+    			//colore diverso
+    			tavolo[(int)(punto.getX())][(int)(punto.getY())].setBorder(BorderFactory.createLineBorder(Color.red, 2));
+    			break;
+			} else if(checkColore(tavolo[(int)punto.getLocation().getX()][(int)punto.getLocation().getY()])==-1){
+				//stesso colore
+				if(!(p_click.getPezzo().equals(Pezzi.CAVALLO))) break;
+			} else{
+				//casella vuota
+				tavolo[(int)(punto.getLocation().getX())][(int)(punto.getLocation().getY())].setBorder(BorderFactory.createLineBorder(Color.decode("#00cc00"), 2));
+			}
+    	}
+
+    }
+    
+    private boolean spostaPedina(Point newLoc){
 		Pezzo[][] tavolo = scacchiera.getTavolo();
 		Pezzo attesa = scacchiera.getPzAttesa();
 		Colore colore_attesa = attesa.getColore();
@@ -96,64 +146,50 @@ public class MonitorAzioni implements ActionListener {
 		
 		int Xnew = (int) newLoc.getY(),
 			Ynew = (int) newLoc.getX();
-						
-		// AGGIORNAMENTO ICONE
-	
-		JOptionPane.showMessageDialog(null, "PEZZO DA MANGIARE = " + tavolo[Xnew][Ynew].getPezzo() + "\nX,Y =" + Ynew + "," + Xnew + "\nLOCATION = " + tavolo[Xnew][Ynew].getLocation().toString());
-		tavolo[Xnew][Ynew].aggiornaIcona(attesa.getIcon());
-		tavolo[Xold][Yold].aggiornaIcona(null);
-		tavolo[Xold][Yold].invalidate();
 		
-		// AGGIORNAMENTO OGGETTI
-		tavolo[Xold][Yold] = new Vuoto();
-	
-		switch(attesa.getPezzo()){
-			case TORRE:
-				tavolo[Xnew][Ynew] = new Torre(colore_attesa);
-				break;
-			case CAVALLO:
-				tavolo[Xnew][Ynew] = new Cavallo(colore_attesa);
-				break;
-			case REGINA:
-				tavolo[Xnew][Ynew] = new Regina(colore_attesa);
-				break;
-			case RE:
-				tavolo[Xnew][Ynew] = new Re(colore_attesa);
-				break;
-			case ALFIERE:
-				tavolo[Xnew][Ynew] = new Alfiere(colore_attesa);
-				break;
-			case PEDONE:
-				tavolo[Xnew][Ynew] = new Pedone(colore_attesa);
-				break;
-			// NON PUO ENTRARE NEL CASO VUOTO
-		}
-		//tavolo[Xnew][Ynew] = attesa;
-
-		// AGGIORNAMENTO COORDINATE
-		tavolo[Xold][Yold].setLocation(Yold,Xold);
-		tavolo[Xnew][Ynew].setLocation(newLoc); 
-
+		if(tavolo[Xnew][Ynew].getBorder() instanceof LineBorder){
+			Color tmp = ((LineBorder) tavolo[Xnew][Ynew].getBorder()).getLineColor();
+			if ((tmp.equals(Color.decode("#00cc00"))) || (tmp.equals(Color.red))){
+				// AGGIORNAMENTO ICONE
+				Icon img_pezzo = attesa.getIcon();
+				tavolo[Xold][Yold].aggiornaIcona(null);
+				tavolo[Xnew][Ynew].aggiornaIcona(img_pezzo);
 		
-		JOptionPane.showMessageDialog(null, "PEZZO OLD = " + tavolo[Xold][Yold].getPezzo());
-		JOptionPane.showMessageDialog(null, "PEZZO AGGIORNATO = " + tavolo[Xnew][Ynew].getPezzo());
-		aggiornaVuoti();
-		scacchiera.aggiornaScacchiera();
-		scacchiera.setStato(Info.TURNO_BIANCHI);
-	}
-	
-	private void aggiornaVuoti(){
-		Pezzo[][] tavolo = scacchiera.getTavolo();
-			for(int riga=0;riga<8;riga++){
-				for(int colonna=0;colonna<8;colonna++){
-					if((tavolo[riga][colonna].getPezzo()).equals(Pezzi.VUOTO)){
-						//JOptionPane.showMessageDialog(null, "ICONA = " + tavolo[riga][colonna].getIcon());
-						//JOptionPane.showMessageDialog(null, "PEZZO = " + tavolo[0][7] + "\nICONA = " + tavolo[0][7].getIcon());
-						tavolo[riga][colonna].revalidate();
-						tavolo[riga][colonna].repaint();
-					}
+				// AGGIORNAMENTO OGGETTI
+				tavolo[Xold][Yold] = new Vuoto();
+			
+				switch(attesa.getPezzo()){
+					case TORRE:
+						tavolo[Xnew][Ynew] = new Torre(colore_attesa);
+						break;
+					case CAVALLO:
+						tavolo[Xnew][Ynew] = new Cavallo(colore_attesa);
+						break;
+					case REGINA:
+						tavolo[Xnew][Ynew] = new Regina(colore_attesa);
+						break;
+					case RE:
+						tavolo[Xnew][Ynew] = new Re(colore_attesa);
+						break;
+					case ALFIERE:
+						tavolo[Xnew][Ynew] = new Alfiere(colore_attesa);
+						break;
+					case PEDONE:
+						tavolo[Xnew][Ynew] = new Pedone(colore_attesa);
+						break;
+					// NON PUO ENTRARE NEL CASO VUOTO
 				}
+				// AGGIORNAMENTO COORDINATE
+				tavolo[Xold][Yold].setLocation(Yold,Xold);
+				tavolo[Xnew][Ynew].setLocation(newLoc); 
+				// AGGIORNAMENTO DESIGN
+				scacchiera.aggiornaScacchiera();
+				return true;
+			}else{
+				return false;
 			}
-			scacchiera.aggiornaScacchiera();
+		}else{
+			return false;
+		}
 	}
 }
