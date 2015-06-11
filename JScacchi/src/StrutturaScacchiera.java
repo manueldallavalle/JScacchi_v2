@@ -223,4 +223,6 @@ public class StrutturaScacchiera extends JPanel{
 		revalidate();
 		repaint();
 	}
+	
+	
 }

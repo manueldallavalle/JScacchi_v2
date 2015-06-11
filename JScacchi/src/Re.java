@@ -18,7 +18,7 @@ public class Re extends Pezzo{
 	}
 	
 	@Override
-	public ArrayList<Point> getMovimento(){
+	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
 		ArrayList<Point> punti=new ArrayList<>();
 		final int[] posix_riga={1,1,0,-1,-1,-1,0,1};
 		final int[] posix_colonna={0,1,1,1,0,-1,-1,-1};

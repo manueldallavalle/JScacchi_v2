@@ -35,6 +35,8 @@ public class MonitorAzioni implements ActionListener {
 		Pezzo p_click = (Pezzo) e.getSource();
 		Info stato = scacchiera.getStato();
 
+		//stato = Info.TURNO_NERI;
+		
 		if(stato.equals(Info.TURNO_BIANCHI) || stato.equals(Info.TURNO_NERI)){
 			if(p_click.getPezzo().equals(Pezzi.VUOTO)){
 				JOptionPane.showMessageDialog(null, Messaggi.ERR_PEZZONULL.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
@@ -100,7 +102,9 @@ public class MonitorAzioni implements ActionListener {
     private void evidenziaCaselle(Pezzo p_click){
     	Pezzo[][] tavolo = scacchiera.getTavolo();
     	Colore colore_pezzo = p_click.getColore();
-    	ArrayList<Point> pipi=p_click.getMovimento();
+    	ArrayList<Point> pipi=p_click.getMovimento(scacchiera.getTavolo());
+    	Pezzo attesa=scacchiera.getPzAttesa();
+    	
     	
     	if(colore_pezzo.equals(Colore.BIANCO)) {
     		Collections.sort(pipi, new Comparator<Point>() {
@@ -119,17 +123,28 @@ public class MonitorAzioni implements ActionListener {
     			}
     		});
     	}
+    	
+    	/*Point currloc = (scacchiera.getPzAttesa()).getLocation();
+    	ArrayList<Point> temp = new ArrayList<Point>();
+    	ArrayList<Point> finito = new ArrayList<Point>();
+    	
+    	temp = barrets(pipi,currloc,true,false,false,false,false,false,false,false);
+    	pipi = temp;
+    	finito.addAll(temp);
+    	temp = barrets(pipi,currloc,false,true,false,false,false,false,false,false);
+    	pipi = temp;
+    	finito.addAll(temp);
+    	pipi = finito;*/
+    	
     	for(Point punto: pipi){
-    		if(checkColore(tavolo[(int)punto.getX()][(int)punto.getY()])==1){
+    		if(checkColore(tavolo[punto.x][punto.y])==1){
     			//colore diverso
-    			tavolo[(int)(punto.getX())][(int)(punto.getY())].setBorder(BorderFactory.createLineBorder(Color.red, 2));
-    			break;
-			} else if(checkColore(tavolo[(int)punto.getLocation().getX()][(int)punto.getLocation().getY()])==-1){
-				//stesso colore
-				if(!(p_click.getPezzo().equals(Pezzi.CAVALLO))) break;
-			} else{
+    			tavolo[punto.x][punto.y].setBorder(BorderFactory.createLineBorder(Color.red, 2));
+		//	} else if (checkColore(tavolo[punto.x][punto.y])==-1){
+		//		if(!(attesa.getPezzo().equals(Pezzi.CAVALLO))) return;
+			} else {
 				//casella vuota
-				tavolo[(int)(punto.getLocation().getX())][(int)(punto.getLocation().getY())].setBorder(BorderFactory.createLineBorder(Color.decode("#00cc00"), 2));
+				tavolo[punto.getLocation().x][(punto.getLocation().y)].setBorder(BorderFactory.createLineBorder(Color.decode("#00cc00"), 2));
 			}
     	}
 
@@ -141,11 +156,11 @@ public class MonitorAzioni implements ActionListener {
 		Colore colore_attesa = attesa.getColore();
 		Point old = attesa.getLocation();
 		
-		int Xold = (int) old.getY(),
-			Yold = (int) old.getX();
+		int Xold = old.y,
+			Yold = old.x;
 		
-		int Xnew = (int) newLoc.getY(),
-			Ynew = (int) newLoc.getX();
+		int Xnew = newLoc.y,
+			Ynew = newLoc.x;
 		
 		if(tavolo[Xnew][Ynew].getBorder() instanceof LineBorder){
 			Color tmp = ((LineBorder) tavolo[Xnew][Ynew].getBorder()).getLineColor();
@@ -192,4 +207,64 @@ public class MonitorAzioni implements ActionListener {
 			return false;
 		}
 	}
+    
+    /**
+    private ArrayList<Point> barrets(ArrayList<Point> punti, Point p, boolean up, boolean down, boolean dx, boolean sx, boolean diagupsx, boolean diagupdx, boolean diagdwsx, boolean diagdwdx){
+    	Pezzo[][] tavolo = scacchiera.getTavolo();
+    	ArrayList<Point> finito = new ArrayList<Point>();
+    	ArrayList<Point> temp = punti;
+    	
+    	boolean stop = true;
+    	int partenza = 0;
+    	if(up)	partenza =  p.getY();
+    	if(down)		partenza = 0;
+    	
+    	if(down){
+	    	for(int i = partenza; i < 7; i++){
+	    			if( punti.contains(new Point(i,p.getX())) && stop){
+	    				if(checkColore(tavolo[i][p.getX()]) != -1){
+	    					finito.add(new Point(i,p.getX()));
+	    					temp.remove(new Point(i,p.getX()));
+	    					if(checkColore(tavolo[i][p.getX()]) == 1) stop = false;
+	    				}else{
+	    					stop = false;
+	    				}
+	    			}
+	    			
+	    			if( punti.contains(new Point(i,p.getX())) && !stop){
+	    				temp.remove(new Point(i,p.getX()));
+	    			}
+	    	}    		
+	    }
+    	else if(up){
+	    	for(int i = partenza; i > -1 && stop; i--){	    		
+	 			if( punti.contains(new Point(i,p.getX())) && stop){
+    				if(checkColore(tavolo[i][p.getX()]) != -1){
+    					finito.add(new Point(i,p.getX()));
+    					temp.remove(new Point(i,p.getX()));
+    					if(checkColore(tavolo[i][p.getX()]) == 1) stop = false;
+    				}else{
+    					stop = false;
+    				}
+    			}
+    			
+    			if( punti.contains(new Point(i,p.getX())) && !stop){
+    				temp.remove(new Point(i,p.getX()));
+    			}
+	    	}    		
+	    }
+    	return finito;	
+    }
+    
+    private ArrayList<Point> checkPunti(ArrayList<Point> punti){
+    	Pezzo[][] tavolo = scacchiera.getTavolo();
+    	ArrayList<Point> newPunti = new ArrayList<Point>();
+    	for(Point p: punti){
+    		if(checkColore(tavolo[(p.getX())][(p.getY())]) != -1){
+    			newPunti.add(p);
+    		}   			
+    	}
+    	
+    	return newPunti;
+    }*/
 }

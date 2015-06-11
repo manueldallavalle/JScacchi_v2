@@ -17,25 +17,31 @@ public class Alfiere extends Pezzo{
 		return Pezzi.ALFIERE;
 	}
 	
-	//getX()=colonne
-	//getY()=righe
 	@Override
-	public ArrayList<Point> getMovimento(){
-		ArrayList<Point> punti=new ArrayList<>();
-		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i<7 && j<7);i++,j++){
-				punti.add(new Point(i+1,j+1));						
+	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
+		movimenti = new ArrayList<Point>();
+        int x = this.getLocation().y,
+            y = this.getLocation().x;
+        boolean stop = false;
+        		
+		for (int i = x, j = y;(i < 7 && j < 7) && !stop; i++, j++) {
+		    stop = ((impostaPunto(scacchiera, new Point(i+1,j+1)) == -1) ? true : false);
 		}
-		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i>0 && j<7);i--,j++){
-				punti.add(new Point(i-1,j+1));
-						
+    	// RESET
+    	stop = false;
+		for (int i = x, j = y; (i > 0 && j < 7) && !stop; i--, j++) {
+		    stop = ((impostaPunto(scacchiera, new Point(i-1,j+1)) == -1) ? true : false);
 		}
-		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i>0 && j>0);i--,j--){
-			    punti.add(new Point(i-1,j-1));
-					
+    	// RESET
+    	stop = false;
+		for (int i = x, j = y; (i > 0 && j > 0) && !stop; i--, j--) {
+			stop = ((impostaPunto(scacchiera, new Point(i-1,j-1)) == -1) ? true : false);
 		}
-		for(int i=(int)getLocation().getY(),j=(int)getLocation().getX();(i<7 && j>0);i++,j--){
-				punti.add(new Point(i+1,j-1));
+    	// RESET
+    	stop = false;
+		for (int i = x, j = y; (i < 7 && j > 0) && !stop; i++, j--) {
+		    stop = ((impostaPunto(scacchiera, new Point(i+1,j-1)) == -1) ? true : false);
 		}
-		return punti;
+		return movimenti;
 	}
 }

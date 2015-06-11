@@ -12,6 +12,7 @@ public abstract class Pezzo extends JButton {
 	private static final long serialVersionUID=1L;
 	private Colore colore;
 	private Point location;
+	protected ArrayList<Point> movimenti;
 	
 	protected Pezzo(Icon img){
 		this(img, Colore.VUOTO);
@@ -44,12 +45,26 @@ public abstract class Pezzo extends JButton {
 		return Pezzi.VUOTO;
 	}
 	
-	public ArrayList<Point> getMovimento(){
+	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
 		return new ArrayList<Point>();
 	}
 	
 	public void aggiornaIcona(Icon img){
 		this.setIcon(img);
 	}
+	
+    protected int impostaPunto(Pezzo[][] scacchiera, Point setP){
+		if((!this.getColore().equals(scacchiera[setP.x][setP.y].getColore()) && !(scacchiera[setP.x][setP.y].getColore().equals(Colore.VUOTO)))){
+			// TROVO AVVERSARIO
+			movimenti.add(new Point(setP.x,setP.y));
+			return -1;	
+		}else if(this.getColore().equals(scacchiera[setP.x][setP.y].getColore())){
+			// TROVO MIO ALLEATO
+			return -1;			
+		}else{
+			movimenti.add(new Point(setP.x,setP.y));
+			return 0;
+		}
+    }
 	
 }

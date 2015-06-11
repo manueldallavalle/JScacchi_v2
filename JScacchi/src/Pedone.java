@@ -18,26 +18,17 @@ public class Pedone extends Pezzo{
 	}
 	
 	@Override
-	public ArrayList<Point> getMovimento(){
-		ArrayList<Point> punti = new ArrayList<>();
-		if(getColore().equals(Colore.NERO)){
-			punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX())));
-				if((int)getLocation().getX()+1<=7){
-					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()+1)));
-				}
-				if((int)getLocation().getX()-1>=7){
-					punti.add(new Point((int)(getLocation().getY()+1),(int)(getLocation().getX()-1)));
-				}
-		}
-		else{
-			punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX())));
-			if((int)getLocation().getX()+1<=7){
-				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()+1)));
-			}
-			if((int)getLocation().getX()-1>=7){
-				punti.add(new Point((int)(getLocation().getY()-1),(int)(getLocation().getX()-1)));
-			}
-		}
-		return punti;
+	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
+		movimenti = new ArrayList<Point>();
+        int x = this.getLocation().y,
+            y = this.getLocation().x; 
+        
+        int xmod = ((this.getColore().equals(Colore.NERO)) ? x+1 : x-1);
+
+        impostaPunto(scacchiera,new Point(xmod,y+1));
+		impostaPunto(scacchiera,new Point(xmod,y));
+		impostaPunto(scacchiera,new Point(xmod,y-1));
+		
+		return movimenti;
 	}
 }

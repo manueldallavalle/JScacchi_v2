@@ -17,16 +17,15 @@ public class Cavallo extends Pezzo{
 	}
 	
 	@Override
-	public ArrayList<Point> getMovimento(){
+	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
 		
 		final int[] posix_riga={-1,-1,-2,-2,1,1,2,2};
 		final int[] posix_colonna={2,-2,1,-1,2,-2,1,-1};
 		ArrayList<Point> punti=new ArrayList<>();
 			for(int i=0;i<8;i++){
-				if((int)(getLocation().getY())+posix_riga[i]<8 && (int)(getLocation().getY())+posix_riga[i]>-1 && (int)(getLocation().getX())+posix_colonna[i]<8 && (int)(getLocation().getX())+posix_colonna[i]>-1){
-						punti.add(new Point((int)(getLocation().getY()+posix_riga[i]),(int)(getLocation().getX()+posix_colonna[i])));
-				}
-			    
+				if((getLocation().y)+posix_riga[i]<8 && (getLocation().y)+posix_riga[i]>-1 && (getLocation().x)+posix_colonna[i]<8 && (getLocation().x)+posix_colonna[i]>-1){
+						punti.add(new Point((getLocation().y+posix_riga[i]),(getLocation().x+posix_colonna[i])));
+				}			    
 			}
 		return punti;
 	}
