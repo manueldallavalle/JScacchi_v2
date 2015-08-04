@@ -20,15 +20,20 @@ public class Pedone extends Pezzo{
 	@Override
 	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
 		movimenti = new ArrayList<Point>();
+		
         int x = this.getLocation().y,
             y = this.getLocation().x; 
-        
-        int xmod = ((this.getColore().equals(Colore.NERO)) ? x+1 : x-1);
-
-        impostaPunto(scacchiera,new Point(xmod,y+1));
-		impostaPunto(scacchiera,new Point(xmod,y));
-		impostaPunto(scacchiera,new Point(xmod,y-1));
-		
+      
+      if(x+1<8 || x-1>-1){        
+        int xmod = ((this.getColore().equals(Colore.NERO)) ? x+1 : x-1);      
+	      if(y+1<8 || y-1>-1){
+	        impostaPunto(scacchiera,new Point(xmod,y+1));
+	        impostaPunto(scacchiera,new Point(xmod,y-1));
+	        impostaPunto(scacchiera,new Point(xmod,y));
+	      }
+	      impostaPunto(scacchiera,new Point(xmod,y));
+      }	
 		return movimenti;
 	}
+
 }

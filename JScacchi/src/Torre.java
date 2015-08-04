@@ -41,7 +41,7 @@ public class Torre extends Pezzo {
     	
     	// RESET
     	stop = false;
-    	for(int i=y+1;i<8;i++){
+    	for(int i=y+1;i<8 && !stop;i++){
     		stop = ((impostaPunto(scacchiera, new Point(x,i)) == -1) ? true : false);
     	}
     	
