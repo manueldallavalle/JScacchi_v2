@@ -102,12 +102,12 @@ public class MonitorAzioni implements ActionListener {
     private void evidenziaCaselle(Pezzo p_click){
     	Pezzo[][] tavolo = scacchiera.getTavolo();
     	Colore colore_pezzo = p_click.getColore();
-    	ArrayList<Point> pipi=p_click.getMovimento(scacchiera.getTavolo());
+    	ArrayList<Point> listaPezzi=p_click.getMovimento(scacchiera.getTavolo());
     	Pezzo attesa=scacchiera.getPzAttesa();
     	
     	
     	if(colore_pezzo.equals(Colore.BIANCO)) {
-    		Collections.sort(pipi, new Comparator<Point>() {
+    		Collections.sort(listaPezzi, new Comparator<Point>() {
     			public int compare(Point p1, Point p2) {
     				int sum1 = Math.abs(p1.x) + Math.abs(p1.y);
     				int sum2 = Math.abs(p2.x) + Math.abs(p2.y);
@@ -115,7 +115,7 @@ public class MonitorAzioni implements ActionListener {
     			}
     		});
     	}else {
-    		Collections.sort(pipi, new Comparator<Point>() {
+    		Collections.sort(listaPezzi, new Comparator<Point>() {
     			public int compare(Point p1, Point p2) {
     				int sum1 = Math.abs(p1.x) + Math.abs(p1.y);
     				int sum2 = Math.abs(p2.x) + Math.abs(p2.y);
@@ -124,16 +124,30 @@ public class MonitorAzioni implements ActionListener {
     		});
     	}
     	    	
-    	for(Point punto: pipi){
-    		if(checkColore(tavolo[punto.x][punto.y])==1){
-    			//colore diverso
-    			tavolo[punto.x][punto.y].setBorder(BorderFactory.createLineBorder(Color.red, 2));
+    	for(Point punto: listaPezzi){
+    		
+    		int sx =(int) attesa.getLocation().getX()-1;
+			int dx =(int) attesa.getLocation().getX()+1;
+			int dw =(int) attesa.getLocation().getY()-1;
+			int up =(int) attesa.getLocation().getY()+1;
+			
+			
+			if(checkColore(tavolo[punto.x][punto.y])==1){
+		    	//colore diverso
+				if(attesa.getPezzo().equals(Pezzi.PEDONE)){
+					if((punto.x==dw || punto.x==up) && (punto.y==sx || punto.y==dx)){
+						tavolo[punto.x][punto.y].setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					}
+				} else tavolo[punto.x][punto.y].setBorder(BorderFactory.createLineBorder(Color.red, 2));
 			} else if (checkColore(tavolo[punto.x][punto.y])==-1){
+				//colore uguale
 				if(!(attesa.getPezzo().equals(Pezzi.CAVALLO))) return;
 			} else {
 				//casella vuota
+				if(!(attesa.getPezzo().equals(Pezzi.PEDONE) &&  (punto.y==sx || punto.y==dx)))
 				tavolo[punto.getLocation().x][(punto.getLocation().y)].setBorder(BorderFactory.createLineBorder(Color.decode("#00cc00"), 2));
 			}
+    			
     	}
 
     }
