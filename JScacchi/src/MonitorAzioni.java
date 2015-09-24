@@ -55,9 +55,21 @@ public class MonitorAzioni implements ActionListener {
 				}
 			}
 		}else if(stato.equals(Info.ATTESA_BIANCHI) || stato.equals(Info.ATTESA_NERI)){
-			if(spostaPedina(p_click.getLocation())){
+			int statoMangiata = spostaPedina(p_click.getLocation());
+			if(statoMangiata == 1){
 				scacchiera.incrementaMosse(); // Incrementa contatore
 				scacchiera.setStato((stato.equals(Info.ATTESA_BIANCHI)) ? Info.TURNO_NERI : Info.TURNO_BIANCHI); // AGGIORNAMENTO STATO
+				
+				// CONTROLLO SCACCO MATTO
+				Pezzi chiMangiaRe = scacchiera.isScaccoMatto();
+				if(!chiMangiaRe.equals(Pezzi.VUOTO)){
+					JOptionPane.showMessageDialog(null, "Possibile scacco matto sul re avversario, utilizzando il pezzo: " + chiMangiaRe.toString(), "Scacco matto", JOptionPane.WARNING_MESSAGE);
+				}
+			}else if(statoMangiata == 2){
+				scacchiera.incrementaMosse(); // Incrementa contatore
+				String vincitore = ((stato.equals(Info.ATTESA_BIANCHI)) ? "bianchi" : "neri");
+				JOptionPane.showMessageDialog(null, "Ha vinto il giocatore avente i pezzi " + vincitore + " al " + scacchiera.getMosse() + "° turno!\nAlla conferma inizierà una nuova partita", "Complimenti al vincitore!!", JOptionPane.PLAIN_MESSAGE);
+				scacchiera.resetScacchiera(); // RESET SCACCHIERA
 			}else{
 				JOptionPane.showMessageDialog(null, Messaggi.ERR_MOSSAVALIDA.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
 			}
@@ -152,8 +164,11 @@ public class MonitorAzioni implements ActionListener {
 
     }
     
-    
-    private boolean spostaPedina(Point newLoc){
+    private int spostaPedina(Point newLoc){
+    	// 0 = NO MANGIATA
+    	// 1 = MANGIATA
+    	// 2 = MANGIATA DEL RE (SCACCO MATTO)
+    	
 		Pezzo[][] tavolo = scacchiera.getTavolo();
 		Pezzo attesa = scacchiera.getPzAttesa();
 		Colore colore_attesa = attesa.getColore();
@@ -168,6 +183,9 @@ public class MonitorAzioni implements ActionListener {
 		if(tavolo[Xnew][Ynew].getBorder() instanceof LineBorder){
 			Color tmp = ((LineBorder) tavolo[Xnew][Ynew].getBorder()).getLineColor();
 			if ((tmp.equals(Color.decode("#00cc00"))) || (tmp.equals(Color.red))){
+				// CONTROLLO PEZZO MANGIATO
+				Pezzi pz_mangiato = tavolo[Xnew][Ynew].getPezzo();
+				
 				// AGGIORNAMENTO ICONE
 				Icon img_pezzo = attesa.getIcon();
 				tavolo[Xold][Yold].aggiornaIcona(null);
@@ -202,12 +220,17 @@ public class MonitorAzioni implements ActionListener {
 				tavolo[Xnew][Ynew].setLocation(newLoc); 
 				// AGGIORNAMENTO DESIGN
 				scacchiera.aggiornaScacchiera();
-				return true;
+				
+				if(pz_mangiato.equals(Pezzi.RE)){
+					return 2;
+				}else{
+					return 1;
+				}
 			}else{
-				return false;
+				return 0;
 			}
 		}else{
-			return false;
+			return 0;
 		}
 	}
     
