@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public abstract class Pezzo extends JButton {
@@ -54,7 +53,10 @@ public abstract class Pezzo extends JButton {
 	}
 	
     protected int impostaPunto(Pezzo[][] scacchiera, Point setP){
-		if((!this.getColore().equals(scacchiera[setP.x][setP.y].getColore()) && !(scacchiera[setP.x][setP.y].getColore().equals(Colore.VUOTO)))){
+    	// CONTROLLO LIMITI SCACCHIERA
+    	if(setP.x < 0 || setP.x > 7 || setP.y < 0 || setP.y > 7){
+    		return -1;
+    	}else if((!this.getColore().equals(scacchiera[setP.x][setP.y].getColore()) && !(scacchiera[setP.x][setP.y].getColore().equals(Colore.VUOTO)))){
 			// TROVO AVVERSARIO
 			movimenti.add(new Point(setP.x,setP.y));
 			return -1;	
