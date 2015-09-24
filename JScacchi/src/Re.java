@@ -17,16 +17,25 @@ public class Re extends Pezzo{
 		return Pezzi.RE;
 	}
 	
-	@Override
-	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
-		ArrayList<Point> punti=new ArrayList<>();
-		final int[] posix_riga={1,1,0,-1,-1,-1,0,1};
-		final int[] posix_colonna={0,1,1,1,0,-1,-1,-1};
-		for(int i=0;i<8;i++){
-			if(((int)getLocation().getY()+posix_riga[i]<=7 && (int)getLocation().getY()+posix_riga[i]>=0) && (int)getLocation().getX()+posix_colonna[i]<=7 && (int)getLocation().getX()+posix_colonna[i]>=0){
-				punti.add(new Point((int)(getLocation().getY()+posix_riga[i]),(int)(getLocation().getX()+posix_colonna[i])));
-			}
-		}
-		return punti;
-	}
+	@Override	
+    public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
+        int x = this.getLocation().y,
+            y = this.getLocation().x; 
+        
+        movimenti = new ArrayList <Point>();
+        
+        impostaPunto(scacchiera, new Point(x,y+1));
+        impostaPunto(scacchiera, new Point(x,y-1));
+        
+        impostaPunto(scacchiera, new Point(x+1,y));
+        impostaPunto(scacchiera, new Point(x-1,y));
+        
+        impostaPunto(scacchiera, new Point(x-1,y+1));
+        impostaPunto(scacchiera, new Point(x-1,y-1));
+        
+        impostaPunto(scacchiera, new Point(x+1,y+1));
+        impostaPunto(scacchiera, new Point(x+1,y-1));
+       
+        return movimenti;
+    }
 }
