@@ -3,8 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -36,7 +34,7 @@ public class StrutturaScacchiera extends JPanel{
 		this.setLayout(new BorderLayout());
 		setScacchiera();
 		struttura();
-		stato = Info.TURNO_BIANCHI; // 1Â° TURNO DEI BIANCHI
+		stato = Info.TURNO_BIANCHI; // 1° TURNO DEI BIANCHI
 	}
 	
 	private void struttura(){
@@ -174,10 +172,6 @@ public class StrutturaScacchiera extends JPanel{
 		mossa.setText("MOSSE PARTITA: " + cont_mosse);
 	}
 	
-	protected int getMosse(){
-		return cont_mosse;
-	}
-	
 	protected Pezzo[][] getTavolo(){
 		return scacchiera;
 	}
@@ -230,38 +224,5 @@ public class StrutturaScacchiera extends JPanel{
 		repaint();
 	}
 	
-	protected Pezzi isScaccoMatto(){
-		// false = RE SALVO
-		// true  = SCACCO MATTO!
-		Colore giocatore = ((stato.equals(Info.TURNO_BIANCHI)) ? Colore.BIANCO : Colore.NERO);
-		Colore avversario = ((stato.equals(Info.TURNO_BIANCHI)) ? Colore.NERO : Colore.BIANCO);
-		boolean matto = false;
-		Pezzi chiMangia = Pezzi.VUOTO;
-		
-		for(int riga=0;riga<8 && !matto;riga++){
-			for(int colonna=0;colonna<8 && !matto;colonna++){
-				// CONTROLLO SOLO I PEZZI DEL GIOCATORE ATTUALE SE MANGIANO RE AVVERSARIO
-				if((scacchiera[riga][colonna].getColore()).equals(giocatore)){
-					ArrayList<Point> listaMovimenti = scacchiera[riga][colonna].getMovimento(scacchiera);
-					// CONTROLLO PER OGNI PUNTO IN CUI SI SPOSTA SE E' PRESENTE IL RE AVVERSARIO
-					for(Point p: listaMovimenti){
-						if((scacchiera[p.x][p.y].getPezzo()).equals(Pezzi.RE) && (scacchiera[p.x][p.y].getColore()).equals(avversario)){
-							// CONTROLLO AGGIUNTIVO PEDONE CHE MANGI SOLO IN DIAGONALE
-							if((scacchiera[riga][colonna].getPezzo()).equals(Pezzi.PEDONE)){
-								if(p.y != colonna){
-									matto = true;
-									chiMangia = scacchiera[riga][colonna].getPezzo();
-								}
-							}else{
-								matto = true;
-								chiMangia = scacchiera[riga][colonna].getPezzo();
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		return chiMangia;		
-	}
+	
 }
