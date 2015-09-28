@@ -241,11 +241,11 @@ public class StrutturaScacchiera extends JPanel{
 		for(int riga=0;riga<8 && !matto;riga++){
 			for(int colonna=0;colonna<8 && !matto;colonna++){
 				// CONTROLLO SOLO I PEZZI DEL GIOCATORE ATTUALE SE MANGIANO RE AVVERSARIO
-				if((scacchiera[riga][colonna].getColore()).equals(giocatore)){
+				if((scacchiera[riga][colonna].getColore()).equals(avversario)){
 					ArrayList<Point> listaMovimenti = scacchiera[riga][colonna].getMovimento(scacchiera);
 					// CONTROLLO PER OGNI PUNTO IN CUI SI SPOSTA SE E' PRESENTE IL RE AVVERSARIO
 					for(Point p: listaMovimenti){
-						if((scacchiera[p.x][p.y].getPezzo()).equals(Pezzi.RE) && (scacchiera[p.x][p.y].getColore()).equals(avversario)){
+						if((scacchiera[p.x][p.y].getPezzo()).equals(Pezzi.RE) && (scacchiera[p.x][p.y].getColore()).equals(giocatore)){
 							// CONTROLLO AGGIUNTIVO PEDONE CHE MANGI SOLO IN DIAGONALE
 							if((scacchiera[riga][colonna].getPezzo()).equals(Pezzi.PEDONE)){
 								if(p.y != colonna){
