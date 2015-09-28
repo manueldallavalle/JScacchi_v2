@@ -22,9 +22,8 @@ public class StrutturaScacchiera extends JPanel{
 	private JPanel coordinateColonna=new JPanel();
 	private JLabel coordinate_rig[]=new JLabel[9];
 	private JPanel coordinateRiga=new JPanel();
-	private JLabel ped_mangiate_bianche[]=new JLabel[16];
-    private JLabel ped_mangiate_nere[]=new JLabel[16];
-    private JPanel pedineMangiate=new JPanel();
+	private JLabel spazio[]=new JLabel[16];
+    private JPanel bordoDx=new JPanel();
     private JLabel mossa = new JLabel();
     private JPanel contatoreMosse = new JPanel();
     final StrutturaScacchiera obj = this;
@@ -43,14 +42,12 @@ public class StrutturaScacchiera extends JPanel{
 		
 		//coordinate colonna
 		
-		coordinateColonna.setLayout(new FlowLayout());
-		JLabel vuoto=new JLabel("PEZZI MANGIATI");
+	coordinateColonna.setLayout(new FlowLayout());
+	JLabel vuoto=new JLabel("");
         vuoto.setHorizontalAlignment(2);
         vuoto.setForeground(java.awt.Color.decode("#ffffb3"));
-        JLabel vuoto1=new JLabel("");
-        vuoto.setPreferredSize(new Dimension(100,30));
-        vuoto1.setPreferredSize(new Dimension(57,30));
-        coordinateColonna.add(vuoto1);
+        vuoto.setPreferredSize(new Dimension(57,30));
+        coordinateColonna.add(vuoto);
         for(int i=0;i<8;i++){
             coordinate_col[i]=new JLabel(""+(char)(i+65)); 
             coordinate_col[i].setHorizontalAlignment(JLabel.CENTER);
@@ -59,8 +56,7 @@ public class StrutturaScacchiera extends JPanel{
             coordinate_col[i].setForeground(java.awt.Color.decode("#ffffb3"));
             coordinateColonna.add(coordinate_col[i]);
             coordinateColonna.setBackground(java.awt.Color.decode("#762825"));
-        }         
-        coordinateColonna.add(vuoto);
+        } 
         
         //coordinate riga
         
@@ -74,20 +70,16 @@ public class StrutturaScacchiera extends JPanel{
             coordinateRiga.setBackground(java.awt.Color.decode("#762825"));
         }
 		
-		// pedine mangiate
+	// bordo a destra
 		
-		pedineMangiate.setLayout(new GridLayout(16,2));
-		for(int i=0;i<16;i++){
-            ped_mangiate_bianche[i]=new JLabel();
-            ped_mangiate_nere[i]=new JLabel();
-            ped_mangiate_bianche[i].setHorizontalAlignment( JLabel.CENTER );
-            ped_mangiate_nere[i].setHorizontalAlignment( JLabel.CENTER );
-            ped_mangiate_bianche[i].setPreferredSize(new Dimension(70, 40));
-            ped_mangiate_nere[i].setPreferredSize(new Dimension(70, 40));
-            pedineMangiate.add(ped_mangiate_bianche[i]);
-            pedineMangiate.add(ped_mangiate_nere[i]);
-            pedineMangiate.setBackground(java.awt.Color.decode("#762825"));
-        }
+	bordoDx.setLayout(new GridLayout(8,1));
+        bordoDx.setPreferredSize(new Dimension(40,70));
+		for(int i=0;i<8;i++){
+			spazio[i]=new JLabel(" ");
+			spazio[i].setHorizontalAlignment( JLabel.CENTER);
+            		bordoDx.add(spazio[i]);
+            		bordoDx.setBackground(java.awt.Color.decode("#762825"));
+        	}
 		
 		// contatore mosse
 		
@@ -102,7 +94,7 @@ public class StrutturaScacchiera extends JPanel{
 		
 		add(coordinateColonna,BorderLayout.NORTH);
 		add(coordinateRiga,BorderLayout.WEST);
-		add(pedineMangiate,BorderLayout.EAST);
+		add(bordoDx,BorderLayout.EAST);
 		add(contatoreMosse,BorderLayout.SOUTH);
 	}
 	
