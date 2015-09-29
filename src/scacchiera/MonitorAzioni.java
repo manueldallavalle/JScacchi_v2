@@ -101,8 +101,8 @@ public class MonitorAzioni implements ActionListener {
 		return flag;
 	}
 	/**
-	 * metodo che mi dice se la casella di destinazione è vuota o è occupata da avversari o alleati
-	 * @param newPezzo rappresenta il pezzo nella casella di destinazione, che può essere anche un pezzo vuoto
+	 * metodo che mi dice se la casella di destinazione Ã¨ vuota o Ã¨ occupata da avversari o alleati
+	 * @param newPezzo rappresenta il pezzo nella casella di destinazione, che puÃ² essere anche un pezzo vuoto
 	 * @return un valore numerico che differenzia i vari casi
 	 */
 	protected int checkColore(Pezzo newPezzo) {
@@ -175,7 +175,7 @@ public class MonitorAzioni implements ActionListener {
 	}
 	/**
 	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
-	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
+	 * @param newLoc rappresenta il punto dove il pezzo si Ã¨ mosso
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
 	protected int spostaPedina(Point newLoc){
@@ -184,7 +184,7 @@ public class MonitorAzioni implements ActionListener {
 	/**
 	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
 	 * @param oldLoc rappresenta il punto del pezzo da spostare
-	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
+	 * @param newLoc rappresenta il punto dove il pezzo si Ã¨ mosso
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
 	public int spostaPedina(Point oldLoc, Point newLoc){
@@ -193,9 +193,9 @@ public class MonitorAzioni implements ActionListener {
 	}
 	/**
 	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
-	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
+	 * @param newLoc rappresenta il punto dove il pezzo si Ã¨ mosso
 	 * @param toMove rappresenta il pezzo da spostare in newLoc
-	 * @param ignoreBorder valore booleano che se messo a 'true', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
+	 * @param ignoreBorder valore booleano che se messo a 'vero', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
 	protected int spostaPedina(Pezzo toMove, Point newLoc, boolean ignoreBorder) {
@@ -243,6 +243,7 @@ public class MonitorAzioni implements ActionListener {
 						tavolo[Xnew][Ynew] = new Pedone(colore_attesa);
 						break;
 					case VUOTO:
+						tavolo[Xnew][Ynew] = new Vuoto(colore_attesa);
 						break;
 				}
 				// AGGIORNAMENTO COORDINATE
