@@ -178,15 +178,33 @@ public class MonitorAzioni implements ActionListener {
 	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
-	private int spostaPedina(Point newLoc) {
+	protected int spostaPedina(Point newLoc){
+		return spostaPedina(scacchiera.getPzAttesa(), newLoc, false);
+	}
+	/**
+	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
+	 * @param oldLoc rappresenta il punto del pezzo da spostare
+	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
+	 * @return un generico valore intero che mi rappresenta vari casi
+	 */
+	public int spostaPedina(Point oldLoc, Point newLoc){
+		Pezzo[][] tavolo = scacchiera.getTavolo();
+		return spostaPedina(tavolo[oldLoc.y][oldLoc.x], newLoc, true);
+	}
+	/**
+	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
+	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
+	 * @param toMove rappresenta il pezzo da spostare in newLoc
+	 * @param ignoreBorder valore booleano che se messo a 'vero', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
+	 * @return un generico valore intero che mi rappresenta vari casi
+	 */
+	protected int spostaPedina(Pezzo toMove, Point newLoc, boolean ignoreBorder) {
 		// 0 = NO MANGIATA
 		// 1 = MANGIATA
-		// 2 = MANGIATA DEL RE (SCACCO MATTO)
 
 		Pezzo[][] tavolo = scacchiera.getTavolo();
-		Pezzo attesa = scacchiera.getPzAttesa();
-		Colore colore_attesa = attesa.getColore();
-		Point old = attesa.getLocation();
+		Colore colore_attesa = toMove.getColore();
+		Point old = toMove.getLocation();
 
 		int Xold = old.y,
 		Yold = old.x;
@@ -194,18 +212,18 @@ public class MonitorAzioni implements ActionListener {
 		int Xnew = newLoc.y,
 		Ynew = newLoc.x;
 
-		if (tavolo[Xnew][Ynew].getBorder() instanceof LineBorder) {
-			Color tmp = ((LineBorder) tavolo[Xnew][Ynew].getBorder()).getLineColor();
-			if ((tmp.equals(Color.decode("#00cc00"))) || (tmp.equals(Color.red))) {
+		if (ignoreBorder || tavolo[Xnew][Ynew].getBorder() instanceof LineBorder) {
+			Color tmp = ((ignoreBorder) ? null : ((LineBorder) tavolo[Xnew][Ynew].getBorder()).getLineColor());
+			if (ignoreBorder || (tmp.equals(Color.decode("#00cc00"))) || (tmp.equals(Color.red))) {
 				// AGGIORNAMENTO ICONE
-				Icon img_pezzo = attesa.getIcon();
+				Icon img_pezzo = toMove.getIcon();
 				tavolo[Xold][Yold].aggiornaIcona(null);
 				tavolo[Xnew][Ynew].aggiornaIcona(img_pezzo);
 
 				// AGGIORNAMENTO OGGETTI
 				tavolo[Xold][Yold] = new Vuoto();
 
-				switch (attesa.getPezzo()) {
+				switch (toMove.getPezzo()) {
 					case TORRE:
 						tavolo[Xnew][Ynew] = new Torre(colore_attesa);
 						break;

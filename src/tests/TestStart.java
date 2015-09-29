@@ -3,11 +3,21 @@ import org.junit.*;
 import struttura.*;
 import scacchiera.*;
 
+/**
+ * <p>Title: TestStart</p>
+ * <p>Description: Classe Test che verifica lo stato iniziale della scacchiera</p>
+ * @author Dalla Valle Manuel, Leone Davide, Benedetti Gianmarco
+ * @version 1.0
+ */
+
 public class TestStart{
 
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
 	Pezzo[][] tavolo = scacchiera.getTavolo();
 	
+	/**
+	 * Metodo che verifica la posizione corretta dei pezzi nella scacchiera
+	 */
 	@Test
 	public void testPosizione(){
 		Assert.assertEquals(Pezzi.TORRE, tavolo[7][0].getPezzo());		
@@ -49,11 +59,17 @@ public class TestStart{
 		Assert.assertEquals(Pezzi.TORRE, tavolo[0][7].getPezzo());
 	}
 	
+	/**
+	 * Metodo che verifica che ad iniziare la partita sia il giocatore con i pezzi bianchi
+	 */
 	@Test
 	public void testStato() {
 		Assert.assertEquals(scacchiera.getStato(), Info.TURNO_BIANCHI);
 	}
 	
+	/**
+	 * Metodo che verifica il corretto colore dei pezzi disposti
+	 */
 	@org.junit.Test
 	public void testColore() {
 		for (int i = 0; i < 2; i++) {
