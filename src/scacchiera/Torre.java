@@ -1,7 +1,9 @@
 package scacchiera;
 import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
 import struttura.*;
 
 /**
@@ -19,7 +21,7 @@ public class Torre extends Pezzo {
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
 	public Torre(Colore colore) {
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/torre_bianca.gif") : new ImageIcon("immagini/torre_nera.gif"), colore);
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon(Torre.class.getResource("/torre_bianca.gif")) : new ImageIcon(Torre.class.getResource("/torre_nera.gif")), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo torre

@@ -1,7 +1,9 @@
 package scacchiera;
 import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
 import struttura.*;
 
 /**
@@ -18,7 +20,7 @@ public class Alfiere extends Pezzo {
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
 	public Alfiere(Colore colore) {
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/alfiere_bianca.gif") : new ImageIcon("immagini/alfiere_nera.gif"), colore);
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon(Alfiere.class.getResource("/alfiere_bianca.gif")) : new ImageIcon(Alfiere.class.getResource("/alfiere_nera.gif")), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo alfiere

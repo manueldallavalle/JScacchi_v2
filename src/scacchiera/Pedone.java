@@ -18,7 +18,7 @@ public class Pedone extends Pezzo {
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
 	public Pedone(Colore colore) {
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/pedone_bianca.gif") : new ImageIcon("immagini/pedone_nera.gif"), colore);
+		  super((colore.equals(Colore.BIANCO)) ? new ImageIcon(Pedone.class.getResource("/pedone_bianca.gif")) : new ImageIcon(Pedone.class.getResource("/pedone_nera.gif")), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo pedone

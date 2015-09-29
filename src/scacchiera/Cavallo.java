@@ -1,7 +1,9 @@
 package scacchiera;
 import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
 import struttura.*;
 
 /**
@@ -18,7 +20,7 @@ public class Cavallo extends Pezzo {
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
 	public Cavallo(Colore colore) {
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/cavallo_bianca.gif") : new ImageIcon("immagini/cavallo_nera.gif"), colore);
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon(Cavallo.class.getResource("/cavallo_bianca.gif")) : new ImageIcon(Cavallo.class.getResource("/cavallo_nera.gif")), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo cavallo

@@ -1,7 +1,9 @@
 package scacchiera;
 import java.awt.Point;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
 import struttura.*;
 
 /**
@@ -21,7 +23,7 @@ public class Regina extends Pezzo {
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
 	public Regina(Colore colore) {
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/regina_bianca.gif") : new ImageIcon("immagini/regina_nera.gif"), colore);
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon(Regina.class.getResource("/regina_bianca.gif")) : new ImageIcon(Regina.class.getResource("/regina_nera.gif")), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo regina
