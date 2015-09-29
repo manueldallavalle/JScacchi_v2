@@ -16,7 +16,9 @@ public class TestSpostamenti {
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
 	MonitorAzioni gestoreMovimenti = new MonitorAzioni(scacchiera);
 	Pezzo[][] tavolo = scacchiera.getTavolo();
-
+	/**
+	 * metodo che simula dei movimenti delle pedine
+	 */
 	@Test
 	public void testMatch() {
 		gestoreMovimenti.spostaPedina(new Point(7, 6), new Point(7, 4));

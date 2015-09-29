@@ -195,7 +195,7 @@ public class MonitorAzioni implements ActionListener {
 	 * metodo che gestisce lo spostamento delle pedine sotto l'aspetto di cancellazione icone, aggiornamento icone etc..
 	 * @param newLoc rappresenta il punto dove il pezzo si è mosso
 	 * @param toMove rappresenta il pezzo da spostare in newLoc
-	 * @param ignoreBorder valore booleano che se messo a 'vero', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
+	 * @param ignoreBorder valore booleano che se messo a 'true', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
 	protected int spostaPedina(Pezzo toMove, Point newLoc, boolean ignoreBorder) {

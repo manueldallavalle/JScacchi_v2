@@ -16,7 +16,7 @@ public class TestStart{
 	Pezzo[][] tavolo = scacchiera.getTavolo();
 	
 	/**
-	 * Metodo che verifica la posizione corretta dei pezzi nella scacchiera
+	 * Metodo che verifica la posizione corretta dei pezzi nella scacchiera ad inizio partita
 	 */
 	@Test
 	public void testPosizione(){

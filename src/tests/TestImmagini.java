@@ -13,7 +13,9 @@ public class TestImmagini {
 	
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
 	Pezzo[][] tavolo = scacchiera.getTavolo();
-
+	/**
+	 * metodo che controlla che le varie icone corrispondano alle pedine
+	 */
 	@org.junit.Test
 	public void testIcone() {
 		Assert.assertEquals("immagini/torre_nera.gif", (tavolo[0][0].getIcon()).toString());
