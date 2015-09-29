@@ -1,3 +1,4 @@
+package scacchiera;
 import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;

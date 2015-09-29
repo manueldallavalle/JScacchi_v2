@@ -1,3 +1,4 @@
+package scacchiera;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;

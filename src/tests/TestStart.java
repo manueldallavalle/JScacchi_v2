@@ -1,19 +1,15 @@
+package tests;
 import org.junit.*;
+import struttura.*;
+import scacchiera.*;
 
-import struttura.Colore;
-import struttura.Info;
-import struttura.Pezzi;
-
-
-public class TestScacchiera{
-
+public class TestStart{
 
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
 	Pezzo[][] tavolo = scacchiera.getTavolo();
 	
 	@Test
 	public void testPosizione(){
-
 		Assert.assertEquals(Pezzi.TORRE, tavolo[7][0].getPezzo());		
 		Assert.assertEquals(Pezzi.CAVALLO, tavolo[7][1].getPezzo());
 		Assert.assertEquals(Pezzi.ALFIERE, tavolo[7][2].getPezzo());
@@ -78,6 +74,4 @@ public class TestScacchiera{
 			}
 		}
 	}
-	
-	
 }

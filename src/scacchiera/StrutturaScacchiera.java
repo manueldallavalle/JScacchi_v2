@@ -1,3 +1,4 @@
+package scacchiera;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -188,14 +189,14 @@ public class StrutturaScacchiera extends JPanel {
 	 * questo metodo ritorna la scacchiera
 	 * @return la situazione della scacchiera in quel momento
 	 */
-	protected Pezzo[][] getTavolo() {
+	public Pezzo[][] getTavolo() {
 		return scacchiera;
 	}
 	/**
 	 * questo metodo mi ritorna lo stato del gioco, ovvero chi tocca a muovere
 	 * @return di chi è il turno di muovere
 	 */
-	protected Info getStato() {
+	public Info getStato() {
 		return stato;
 	}
 	/**

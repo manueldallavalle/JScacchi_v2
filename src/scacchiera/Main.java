@@ -1,3 +1,4 @@
+package scacchiera;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
