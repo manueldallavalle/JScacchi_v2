@@ -13,7 +13,7 @@ public class Main {
 	 * questo metodo è il main della classe Main
 	 * @param arg rappresenta l'input
 	 */
-        public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			/**
 			 * metodo che inizializza la scacchiera
@@ -24,7 +24,7 @@ public class Main {
 				frame.setTitle("Scacchi");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
-		        frame.setResizable(false);
+				frame.setResizable(false);
 			}
 		});
 	}

@@ -1,10 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-
-import struttura.Colore;
-import struttura.Pezzi;
+import struttura.*;
 
 /**
  * <p>Title: Pedone</p>
@@ -13,21 +10,21 @@ import struttura.Pezzi;
  * @version 1.0
  */
 
-public class Pedone extends Pezzo{
+public class Pedone extends Pezzo {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * questo metodo è il costruttore della classe Pedone
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
-	public Pedone(Colore colore){
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/pedone_bianca.gif") : new ImageIcon("immagini/pedone_nera.gif"),colore );
+	public Pedone(Colore colore) {
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/pedone_bianca.gif") : new ImageIcon("immagini/pedone_nera.gif"), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo pedone
 	 * @return il pezzo pedone
 	 */
 	@Override
-	public Pezzi getPezzo(){
+	public Pezzi getPezzo() {
 		return Pezzi.PEDONE;
 	}
 	/**
@@ -36,18 +33,17 @@ public class Pedone extends Pezzo{
 	 * @return l'arrayList contenente le coordinate dei possibili movimenti
 	 */
 	@Override
-	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
-		movimenti = new ArrayList<Point>();
-		
-        int x = this.getLocation().y,
-            y = this.getLocation().x; 
-      
-        int xmod = ((this.getColore().equals(Colore.NERO)) ? x+1 : x-1);      
-		impostaPunto(scacchiera,new Point(xmod,y+1));
-		impostaPunto(scacchiera,new Point(xmod,y-1));
-		impostaPunto(scacchiera,new Point(xmod,y));	      	
-		
+	public ArrayList < Point > getMovimento(Pezzo[][] scacchiera) {
+		movimenti = new ArrayList < Point > ();
+
+		int x = this.getLocation().y,
+		y = this.getLocation().x;
+
+		int xmod = ((this.getColore().equals(Colore.NERO)) ? x + 1 : x - 1);
+		impostaPunto(scacchiera, new Point(xmod, y + 1));
+		impostaPunto(scacchiera, new Point(xmod, y - 1));
+		impostaPunto(scacchiera, new Point(xmod, y));
+
 		return movimenti;
 	}
-
 }

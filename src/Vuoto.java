@@ -1,5 +1,4 @@
-import struttura.Colore;
-import struttura.Pezzi;
+import struttura.*;
 
 /**
  * <p>Title: Vuoto</p>
@@ -8,26 +7,26 @@ import struttura.Pezzi;
  * @version 1.0
  */
 
-public class Vuoto extends Pezzo{
+public class Vuoto extends Pezzo {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * questo metodo è il costruttore della classe Vuoto
 	 */
-	public Vuoto(){
+	public Vuoto() {
 		super(new javax.swing.ImageIcon(""));
 	}
 	/**
 	 * questo metodo è il costruttore della classe Vuoto
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
-	public Vuoto(Colore colore){
+	public Vuoto(Colore colore) {
 		super(new javax.swing.ImageIcon(""));
 	}
 	/**
 	 * questo metodo ritorna il pezzo vuoto
 	 * @return il pezzo vuoto
 	 */
-	public Pezzi getPezzo(){
+	public Pezzi getPezzo() {
 		return Pezzi.VUOTO;
 	}
 }

@@ -1,10 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-
-import struttura.Colore;
-import struttura.Pezzi;
+import struttura.*;
 
 /**
  * <p>Title: Alfiere</p>
@@ -13,21 +10,21 @@ import struttura.Pezzi;
  * @version 1.0
  */
 
-public class Alfiere extends Pezzo{
-	private static final long serialVersionUID=1L;
+public class Alfiere extends Pezzo {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * questo metodo è il costruttore della classe Alfiere
 	 * @param colore rappresenta il colore del pezzo (nero o bianco)
 	 */
-	public Alfiere(Colore colore){
-		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/alfiere_bianca.gif") : new ImageIcon("immagini/alfiere_nera.gif"),colore );
+	public Alfiere(Colore colore) {
+		super((colore.equals(Colore.BIANCO)) ? new ImageIcon("immagini/alfiere_bianca.gif") : new ImageIcon("immagini/alfiere_nera.gif"), colore);
 	}
 	/**
 	 * questo metodo ritorna il pezzo alfiere
 	 * @return il pezzo alfiere
 	 */
 	@Override
-	public Pezzi getPezzo(){
+	public Pezzi getPezzo() {
 		return Pezzi.ALFIERE;
 	}
 	/**
@@ -36,29 +33,33 @@ public class Alfiere extends Pezzo{
 	 * @return l'arrayList contenente le coordinate dei possibili movimenti
 	 */
 	@Override
-	public ArrayList<Point> getMovimento(Pezzo[][] scacchiera){
-		movimenti = new ArrayList<Point>();
-        int x = this.getLocation().y,
-            y = this.getLocation().x;
-        boolean stop = false;
-        		
-		for (int i = x, j = y;(i < 7 && j < 7) && !stop; i++, j++) {
-		    stop = ((impostaPunto(scacchiera, new Point(i+1,j+1)) == -1) ? true : false);
+	public ArrayList < Point > getMovimento(Pezzo[][] scacchiera) {
+		movimenti = new ArrayList < Point > ();
+		int x = this.getLocation().y,
+		y = this.getLocation().x;
+		boolean stop = false;
+
+		for (int i = x, j = y;
+		(i < 7 && j < 7) && !stop; i++, j++) {
+			stop = ((impostaPunto(scacchiera, new Point(i + 1, j + 1)) == -1) ? true : false);
 		}
-    	// RESET
-    	stop = false;
-		for (int i = x, j = y; (i > 0 && j < 7) && !stop; i--, j++) {
-		    stop = ((impostaPunto(scacchiera, new Point(i-1,j+1)) == -1) ? true : false);
+		// RESET
+		stop = false;
+		for (int i = x, j = y;
+		(i > 0 && j < 7) && !stop; i--, j++) {
+			stop = ((impostaPunto(scacchiera, new Point(i - 1, j + 1)) == -1) ? true : false);
 		}
-    	// RESET
-    	stop = false;
-		for (int i = x, j = y; (i > 0 && j > 0) && !stop; i--, j--) {
-			stop = ((impostaPunto(scacchiera, new Point(i-1,j-1)) == -1) ? true : false);
+		// RESET
+		stop = false;
+		for (int i = x, j = y;
+		(i > 0 && j > 0) && !stop; i--, j--) {
+			stop = ((impostaPunto(scacchiera, new Point(i - 1, j - 1)) == -1) ? true : false);
 		}
-    	// RESET
-    	stop = false;
-		for (int i = x, j = y; (i < 7 && j > 0) && !stop; i++, j--) {
-		    stop = ((impostaPunto(scacchiera, new Point(i+1,j-1)) == -1) ? true : false);
+		// RESET
+		stop = false;
+		for (int i = x, j = y;
+		(i < 7 && j > 0) && !stop; i++, j--) {
+			stop = ((impostaPunto(scacchiera, new Point(i + 1, j - 1)) == -1) ? true : false);
 		}
 		return movimenti;
 	}
