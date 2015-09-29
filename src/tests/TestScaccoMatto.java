@@ -18,7 +18,9 @@ public class TestScaccoMatto {
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
 	MonitorAzioni gestoreMovimenti = new MonitorAzioni(scacchiera);
 	Pezzo[][] tavolo = scacchiera.getTavolo();
-	
+	/**
+	 * metodo che simula una breve partita che termina con uno scacco matto
+	 */
 	@Test
 	public void testSottoScacco() {
 		Assert.assertEquals(scacchiera.isScaccoMatto(), Pezzi.VUOTO);
