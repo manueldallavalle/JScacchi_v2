@@ -257,7 +257,7 @@ public class StrutturaScacchiera extends JPanel {
 	 * questo metodo controlla de è avvenuto uno scacco matto
 	 * @return il pezzo che ha causato lo scacco matto
 	 */
-	protected Pezzi isScaccoMatto() {
+	public Pezzi isScaccoMatto() {
 		// false = RE SALVO
 		// true  = SCACCO MATTO!
 		Colore giocatore = ((stato.equals(Info.TURNO_BIANCHI)) ? Colore.BIANCO : Colore.NERO);

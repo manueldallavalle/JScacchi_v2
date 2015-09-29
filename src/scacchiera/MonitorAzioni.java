@@ -66,7 +66,17 @@ public class MonitorAzioni implements ActionListener {
 				}
 			}
 		} else if (stato.equals(Info.ATTESA_BIANCHI) || stato.equals(Info.ATTESA_NERI)) {
-			if (spostaPedina(p_click.getLocation()) == 1) {
+			Colore p_attesa = (scacchiera.getPzAttesa()).getColore();
+			// VOGLIO CAMBIARE PEZZO
+			if(p_attesa.equals(p_click.getColore())){
+				scacchiera.aggiornaScacchiera(); // RESET BORDO
+				scacchiera.setPzAttesa(p_click);
+				evidenziaCaselle(p_click);
+				// MSG ERRORE
+				if (!mosseDisponibili()) {
+					JOptionPane.showMessageDialog(null, Messaggi.ERR_NOMOSSE.getMsg(), "Errore!", JOptionPane.ERROR_MESSAGE);
+				}
+			}else if (spostaPedina(p_click.getLocation()) == 1) {
 				scacchiera.incrementaMosse(); // Incrementa contatore
 				scacchiera.setStato((stato.equals(Info.ATTESA_BIANCHI)) ? Info.TURNO_NERI : Info.TURNO_BIANCHI); // AGGIORNAMENTO STATO
 			} else {
@@ -198,7 +208,7 @@ public class MonitorAzioni implements ActionListener {
 	 * @param ignoreBorder valore booleano che se messo a 'vero', forza lo spostamento di qualsiasi pezzo in qualsiasi punto (anche se non potrebbe)
 	 * @return un generico valore intero che mi rappresenta vari casi
 	 */
-	protected int spostaPedina(Pezzo toMove, Point newLoc, boolean ignoreBorder) {
+	public int spostaPedina(Pezzo toMove, Point newLoc, boolean ignoreBorder) {
 		// 0 = NO MANGIATA
 		// 1 = MANGIATA
 

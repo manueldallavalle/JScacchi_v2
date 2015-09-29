@@ -6,6 +6,13 @@ import java.awt.Point;
 import scacchiera.*;
 import struttura.*;
 
+/**
+ * <p>Title: TestScaccoMatto</p>
+ * <p>Description: Classe Test che effettua una simulazione di una partita vera e propria con scacco matto</p>
+ * @author Dalla Valle Manuel, Leone Davide, Benedetti Gianmarco
+ * @version 1.0
+ */
+
 public class TestScaccoMatto {
 	
 	StrutturaScacchiera scacchiera = new StrutturaScacchiera();
@@ -13,90 +20,37 @@ public class TestScaccoMatto {
 	Pezzo[][] tavolo = scacchiera.getTavolo();
 	
 	@Test
-	public void testSottoScacco(){
+	public void testSottoScacco() {
+		Assert.assertEquals(scacchiera.isScaccoMatto(), Pezzi.VUOTO);
 		
-		Assert.assertEquals(scacchiera.isScaccoMatto(),Pezzi.PEDONE);
+		// SPOSTO PEDONE BIANCO
+		gestoreMovimenti.spostaPedina(new Point(6, 6), new Point(6, 5));
+		Assert.assertEquals(Pezzi.PEDONE, tavolo[5][6].getPezzo());
 		
-		gestoreMovimenti.spostaPedina(new Point(2, 6), new Point(2, 4));
+		// SPOSTO PEDONE NERO
+		Assert.assertEquals(Pezzi.PEDONE, tavolo[1][4].getPezzo());
+		Assert.assertEquals(Colore.NERO, tavolo[1][4].getColore());
+		gestoreMovimenti.spostaPedina(new Point(4, 1), new Point(4, 2));
 		
-		Assert.assertEquals(Pezzi.PEDONE, tavolo[2][4].getPezzo());
-		Assert.assertEquals(Pezzi.PEDONE, tavolo[3][1].getPezzo());
+		// SPOSTO PEDONE BIANCO
+		Assert.assertEquals(Pezzi.PEDONE, tavolo[5][6].getPezzo());
+		gestoreMovimenti.spostaPedina(new Point(6, 5), new Point(6, 4));
 		
-		gestoreMovimenti.spostaPedina(new Point(3, 1), new Point(3, 3));
+		// SPOSTO PEDONE NERO
+		gestoreMovimenti.spostaPedina(new Point(4, 2), new Point(4, 3));
+		Assert.assertEquals(Pezzi.PEDONE, tavolo[3][4].getPezzo());
 		
-		Assert.assertEquals(Pezzi.PEDONE, tavolo[3][3].getPezzo());
+		// SPOSTO PEDONE BIANCO
+		Assert.assertEquals(Pezzi.PEDONE, tavolo[6][5].getPezzo());
+		Assert.assertEquals(Colore.BIANCO, tavolo[6][5].getColore());
+		gestoreMovimenti.spostaPedina(new Point(5, 6), new Point(5, 5));
 		
-		gestoreMovimenti.spostaPedina(new Point(3, 7), new Point(4, 0));
-		
-		Assert.assertEquals(Pezzi.REGINA, tavolo[4][0].getPezzo());
-		
-		Assert.assertTrue(scacchiera.isScaccoMatto());
-	}
-	
-	@Test
-	public void testScaccoEReset(){
-	
-	
-	Assert.assertTrue(!scacchiera.isScaccoMatto());
-	Assert.assertTrue(!scacchiera.isScaccoMatto());	
-		
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (!((i == 0 && j == 4) || (i == 7 && j == 4) || (i == 7 && j == 7))) {
-					gestoreMovimenti.spostaPedina(new Vuoto(),new Point(i, j), true);					
-				}
-			}
-		}
-		
-	gestoreMovimenti.spostaPedina(new Point(7, 7), new Point(5, 0));
-	gestoreMovimenti.spostaPedina(new Point(4, 7), new Point(4, 2));
-
-	Assert.assertEquals(Pezzi.RE, tavolo[4][2].getPezzo());
-	Assert.assertEquals(Colore.BIANCO, tavolo[4][2].getPezzo());
-	Assert.assertEquals(Pezzi.TORRE, tavolo[5][0].getPezzo());
-	Assert.assertEquals(Colore.BIANCO, tavolo[5][0].getPezzo());
-	Assert.assertEquals(Pezzi.RE, tavolo[4][0].getPezzo());
-	Assert.assertEquals(Colore.NERO, tavolo[4][0].getPezzo());
-	
-	Assert.assertTrue(scacchiera.isScaccoMatto());
-	scacchiera.resetScacchiera();
-		
-	Assert.assertEquals(Pezzi.RE, tavolo[4][0].getPezzo());
-	Assert.assertEquals(Pezzi.PEDONE, tavolo[4][1].getPezzo());
-	Assert.assertEquals(Pezzi.VUOTO, tavolo[5][4].getPezzo());
-	Assert.assertEquals(Pezzi.PEDONE, tavolo[2][6].getPezzo());
-	Assert.assertEquals(Pezzi.CAVALLO, tavolo[6][7].getPezzo());
-	
-	}
-	
-	@Test
-	public void testScacco(){
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (!((i == 7 && j == 4) || (i == 0 && j == 4) || (i == 0 && j == 2) || (i == 0 && j == 5))) {
-					gestoreMovimenti.spostaPedina(new Vuoto(),new Point(i, j), true);
-				}
-			}
-		}
-		
-		gestoreMovimenti.spostaPedina(new Point(4, 7), new Point(7, 7));
-		gestoreMovimenti.spostaPedina(new Point(4, 0), new Point(7, 5));
-		gestoreMovimenti.spostaPedina(new Point(2, 0), new Point(5, 5));
-		gestoreMovimenti.spostaPedina(new Point(5, 0), new Point(4, 3));
-	
-		Assert.assertEquals(Pezzi.RE, tavolo[7][7].getPezzo());
-		Assert.assertEquals(Colore.BIANCO, tavolo[7][7].getPezzo());
-		
-		Assert.assertEquals(Pezzi.RE, tavolo[7][5].getPezzo());
-		Assert.assertEquals(Colore.NERO, tavolo[7][5].getPezzo());
-		
-		Assert.assertEquals(Pezzi.ALFIERE, tavolo[5][5].getPezzo());
-		Assert.assertEquals(Colore.BIANCO, tavolo[5][5].getPezzo());
-		
-		Assert.assertEquals(Pezzi.ALFIERE, tavolo[3][4].getPezzo());
-		Assert.assertEquals(Colore.NERO, tavolo[3][4].getPezzo());
-		
-		//Assert.assertTrue(scacchiera.isScaccoMatto());
-	}
-	
+		// SPOSTO REGINA
+		Assert.assertEquals(Pezzi.REGINA, tavolo[0][3].getPezzo());
+		Assert.assertEquals(Colore.NERO, tavolo[0][3].getColore());
+		gestoreMovimenti.spostaPedina(new Point(3, 0), new Point(7, 4));
+			
+		// SCACCO MATTO CON REGINA
+		Assert.assertEquals(scacchiera.isScaccoMatto(), Pezzi.REGINA);
+	}	
 }
