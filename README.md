@@ -1,5 +1,6 @@
 # JScacchi_v2
 Elaborato Programmazione II 2014 - 2015
+
 <b>Autori:</b> Manuel Dalla Valle, Davide Leone, Gianmarco Benedetti
 <b>Versione:</b> 1.0
 -----------------------------------------------------------------------------------------------------------  
